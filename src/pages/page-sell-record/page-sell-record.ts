@@ -1,0 +1,22 @@
+import { Component } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
+
+/*
+  Generated class for the PageSellRecord page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+*/
+@Component({
+  selector: 'page-page-sell-record',
+  templateUrl: 'page-sell-record.html'
+})
+export class PageSellRecordPage {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad PageSellRecordPage');
+  }
+
+}
