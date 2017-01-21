@@ -11,12 +11,12 @@ import { NavController, NavParams } from 'ionic-angular';
   selector: 'page-page-setting',
   templateUrl: 'page-setting.html'
 })
-export class PageSettingPage {
+export class SettingPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PageSettingPage');
+    console.log('ionViewDidLoad SettingPage');
   }
 
 }

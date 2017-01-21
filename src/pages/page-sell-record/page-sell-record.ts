@@ -11,12 +11,12 @@ import { NavController, NavParams } from 'ionic-angular';
   selector: 'page-page-sell-record',
   templateUrl: 'page-sell-record.html'
 })
-export class PageSellRecordPage {
+export class SellRecordPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PageSellRecordPage');
+    console.log('ionViewDidLoad SellRecordPage');
   }
 
 }

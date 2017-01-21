@@ -11,12 +11,12 @@ import { NavController, NavParams } from 'ionic-angular';
   selector: 'page-page-statistics',
   templateUrl: 'page-statistics.html'
 })
-export class PageStatisticsPage {
+export class StatisticsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PageStatisticsPage');
+    console.log('ionViewDidLoad StatisticsPage');
   }
 
 }
