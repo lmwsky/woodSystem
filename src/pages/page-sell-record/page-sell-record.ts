@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-
+import {PageNewSellPage} from '../page-new-sell/page-new-sell'
 /*
   Generated class for the PageSellRecord page.
 
@@ -8,7 +8,7 @@ import { NavController, NavParams } from 'ionic-angular';
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-page-sell-record',
+  selector: 'page-sell-record',
   templateUrl: 'page-sell-record.html'
 })
 export class SellRecordPage {
@@ -18,5 +18,10 @@ export class SellRecordPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SellRecordPage');
   }
+  createNewSell() {
+    console.log('createNewSell');
+    this.navCtrl.push(PageNewSellPage, {});
+  }
+
 
 }

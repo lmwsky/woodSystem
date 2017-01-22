@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import {PageNewBuyPage} from "../page-new-buy/page-new-buy";
 
 /*
   Generated class for the PageBuyRecord page.
@@ -8,7 +9,7 @@ import { NavController, NavParams } from 'ionic-angular';
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-page-buy-record',
+  selector: 'page-buy-record',
   templateUrl: 'page-buy-record.html'
 })
 export class BuyRecordPage {
@@ -18,5 +19,7 @@ export class BuyRecordPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuyRecordPage');
   }
-
+  createNewBuy() {
+    this.navCtrl.push(PageNewBuyPage, {});
+  }
 }

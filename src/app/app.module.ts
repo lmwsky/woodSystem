@@ -6,6 +6,8 @@ import {StockPage} from "../pages/stock/stock";
 import {BuyRecordPage} from "../pages/page-buy-record/page-buy-record";
 import {SellRecordPage} from "../pages/page-sell-record/page-sell-record";
 import {StatisticsPage} from "../pages/page-statistics/page-statistics";
+import {PageNewBuyPage} from "../pages/page-new-buy/page-new-buy";
+import {PageNewSellPage} from '../pages/page-new-sell/page-new-sell'
 
 
 @NgModule({
@@ -15,6 +17,8 @@ import {StatisticsPage} from "../pages/page-statistics/page-statistics";
     BuyRecordPage,
     SellRecordPage,
     StatisticsPage,
+    PageNewBuyPage,
+    PageNewSellPage,
     TabsPage
   ],
   imports: [
@@ -27,6 +31,8 @@ import {StatisticsPage} from "../pages/page-statistics/page-statistics";
     BuyRecordPage,
     SellRecordPage,
     StatisticsPage,
+    PageNewBuyPage,
+    PageNewSellPage,
     TabsPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
