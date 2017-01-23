@@ -1,5 +1,7 @@
 import {NgModule, ErrorHandler} from "@angular/core";
 import {IonicApp, IonicModule, IonicErrorHandler} from "ionic-angular";
+import {FormsModule} from "@angular/forms";
+
 import {MyApp} from "./app.component";
 import {TabsPage} from "../pages/tabs/tabs";
 import {StockPage} from "../pages/stock/stock";
@@ -22,7 +24,8 @@ import {PageNewSellPage} from '../pages/page-new-sell/page-new-sell'
     TabsPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    FormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
