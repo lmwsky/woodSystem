@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import {StockPage} from "../stock/stock";
-import {BuyRecordPage} from "../page-buy-record/page-buy-record"
+import {BuyRecordPage} from "../../modules/buy-module/page-buy-record/page-buy-record"
 import {SellRecordPage} from "../page-sell-record/page-sell-record"
 import {StatisticsPage} from "../page-statistics/page-statistics"
 @Component({

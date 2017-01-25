@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {PageNewBuyPage} from "../page-new-buy/page-new-buy";
+import {BuyRecord} from "../buy-record/buy.record";
+import {BuyRecordService} from "../buy-record/buy.record.service";
+import {NewBuyPage} from "../page-new-buy/page-new-buy";
+
 
 /*
   Generated class for the PageBuyRecord page.
@@ -14,12 +17,17 @@ import {PageNewBuyPage} from "../page-new-buy/page-new-buy";
 })
 export class BuyRecordPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  buyRecordList:BuyRecord[];
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public buyRecordService:BuyRecordService) {
+    this.buyRecordList=buyRecordService.getBuyRecords();
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuyRecordPage');
   }
   createNewBuy() {
-    this.navCtrl.push(PageNewBuyPage, {});
+    this.navCtrl.push(NewBuyPage, {});
   }
 }
