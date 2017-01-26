@@ -1,4 +1,4 @@
-import {Specification} from "./Specification";
+import {Specification} from "../shared/specification/specification.model";
 import {Injectable} from "@angular/core";
 /**
  * Created by isky on 2017/1/24.
@@ -9,7 +9,7 @@ export class SpecificationService {
   constructor(){
     
   }
-  getSpecications() {
+  getSpecifications() {
     return [
       new Specification(1, "2*6*10", 0.12),
       new Specification(2, "2*7*10", 0.14),

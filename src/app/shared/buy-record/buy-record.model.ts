@@ -5,7 +5,7 @@ export class BuyRecord{
 
   constructor(
     public id:number,
-    public speficationId:number,
+    public specificationId:number,
     public singlePrice:number,
     public num:number,
     public computeSumPrice:number,

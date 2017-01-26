@@ -7,33 +7,24 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 
-import {BuyRecordPage} from "./page-buy-record/page-buy-record";
-import {NewBuyPage} from "./page-new-buy/page-new-buy";
-import {NewBuyFormComponent} from "./new-buy-form/new-buy-form.component";
-
 @NgModule({
   imports: [
-    IonicModule.forRoot(BuyModule),
+    IonicModule.forRoot(SharedModule),
     CommonModule,
     FormsModule
   ],
   declarations: [
-    BuyRecordPage,
-    NewBuyPage,
-    NewBuyFormComponent
   ],
 
   exports: [
-    BuyRecordPage,
-    NewBuyPage
+    CommonModule,
+    FormsModule
   ],
   providers: [
   ],
   //flowing is could be used in tabs container
   entryComponents: [
-    BuyRecordPage,
-    NewBuyPage
   ]
 })
-export class BuyModule {
+export class SharedModule {
 }

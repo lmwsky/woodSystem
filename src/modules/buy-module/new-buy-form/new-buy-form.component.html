@@ -1,0 +1,49 @@
+<form (ngSubmit)="onSubmit()" #createBuyRecordForm="ngForm">
+  <ion-list>
+    <ion-item>
+      <ion-label fixed>规格</ion-label>
+      <ion-select [ngModel]="selectedSpecification"
+                  (ngModelChange)="selectedSpecification=$event;computeSumVolume(); newBuyRecord.specificationId=selectedSpecification.id;"
+                  name="specification">
+        <ion-option *ngFor="let specification of specifications" [value]="specification">
+          {{specification.name}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed>数目/条</ion-label>
+      <ion-input type="number" [ngModel]="newBuyRecord.num"
+                 (ngModelChange)="newBuyRecord.num=$event;computeSumVolume();computeSumPrice();resetActualSumPrice()"
+                 name="num"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed>单价/元</ion-label>
+      <ion-input type="number"
+                 step="0.01"
+                 [ngModel]="newBuyRecord.singlePrice"
+                 (ngModelChange)="newBuyRecord.singlePrice=$event;computeSumPrice();resetActualSumPrice()"
+                 name="singlePrice"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed>方数/立方米</ion-label>
+      <ion-label>{{newBuyRecord.sumVolume.toFixed(2)}}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>计算总价/元</ion-label>
+      <ion-label>{{newBuyRecord.computeSumPrice.toFixed(2)}}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>实际总价/元</ion-label>
+      <ion-input type="number" step="0.01" [(ngModel)]="newBuyRecord.actualSumPrice"
+                 name="actualSumPrice"></ion-input>
+    </ion-item>
+    <ion-item>
+      <button danger full type="submit" [disabled]="!createBuyRecordForm.form.valid">确定</button>
+    </ion-item>
+  </ion-list>
+</form>

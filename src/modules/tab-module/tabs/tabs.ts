@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import {StockPage} from "../../stock-module/stock/stock";
+import {BuyRecordPage} from "../../buy-module/page-buy-record/page-buy-record";
+import {StatisticsPage} from "../../statistics-module/page-statistics/page-statistics";
+import {SellRecordPage} from "../../sell-module/page-sell-record/page-sell-record";
 
-import {StockPage} from "../stock/stock";
-import {BuyRecordPage} from "../../modules/buy-module/page-buy-record/page-buy-record"
-import {SellRecordPage} from "../page-sell-record/page-sell-record"
-import {StatisticsPage} from "../page-statistics/page-statistics"
+
 @Component({
   templateUrl: 'tabs.html'
 })

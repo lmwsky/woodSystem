@@ -1,7 +1,7 @@
 /**
  * Created by isky on 2017/1/25.
  */
-import {BuyRecord} from "./buy.record";
+import {BuyRecord} from "../shared/buy-record/buy-record.model";
 import {Injectable} from "@angular/core";
 
 

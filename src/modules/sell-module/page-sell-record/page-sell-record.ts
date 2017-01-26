@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {PageNewSellPage} from '../page-new-sell/page-new-sell'
+import {PageNewSellPage} from "../page-new-sell/page-new-sell";
 /*
   Generated class for the PageSellRecord page.
 

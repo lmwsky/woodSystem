@@ -1,12 +1,6 @@
 import {Component} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
 
-import {BuyRecordPage} from "../page-buy-record/page-buy-record";
-import {Specification} from "../../../model/specification/Specification";
-import {BuyRecord} from "../buy-record/buy.record";
-import {SpecificationService} from "../../../model/specification/specication.service";
-import {BuyRecordService} from "../buy-record/buy.record.service";
-
 /*
  Generated class for the PageNewBuy page.
 
@@ -18,40 +12,10 @@ import {BuyRecordService} from "../buy-record/buy.record.service";
   templateUrl: 'page-new-buy.html'
 })
 export class NewBuyPage {
-  specifications:Specification[];
-  selectedSpecification:Specification;
-  newBuyRecord:BuyRecord;
-
   constructor(public navCtrl:NavController,
-              public navParams:NavParams,
-              public specificationService:SpecificationService,
-              public buyRecordService:BuyRecordService) {
-    this.specifications = specificationService.getSpecications();
-    this.selectedSpecification = this.specifications[0];
-    this.newBuyRecord = new BuyRecord(0, this.selectedSpecification.id, 0, 0, 0, 0, 0, new Date());
+              public navParams:NavParams) {
   }
-
-  computeSumPrice() {
-    this.newBuyRecord.computeSumPrice = this.newBuyRecord.num * this.newBuyRecord.singlePrice;
-  }
-
-  resetActualSumPrice() {
-    this.newBuyRecord.actualSumPrice = this.newBuyRecord.computeSumPrice;
-
-  }
-
-  computeSumVolume() {
-    this.newBuyRecord.sumVolume = this.newBuyRecord.num * this.selectedSpecification.volume;
-  }
-
   ionViewDidLoad() {
-    console.log('ionViewDidLoad NewBuyPage');
+    console.log('ionViewDidLoad NewBuyFormComponent');
   }
-
-  onSubmit() {
-    console.log('submit the form!');
-    this.buyRecordService.addBuyRecord(this.newBuyRecord);
-    this.navCtrl.popTo(BuyRecordPage);
-  }
-
 }
