@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import {StockPage} from "../../stock-module/stock/stock";
-import {BuyRecordPage} from "../../buy-module/page-buy-record/page-buy-record";
-import {StatisticsPage} from "../../statistics-module/page-statistics/page-statistics";
-import {SellRecordPage} from "../../sell-module/page-sell-record/page-sell-record";
+import {StockPage} from "../../../app/stock/stock/stock";
+import {BuyRecordPage} from "../../../app/buy/page-buy-record/page-buy-record";
+import {StatisticsPage} from "../../../app/statistics/page-statistics/page-statistics";
+import {SellRecordPage} from "../../../app/sell/page-sell-record/page-sell-record";
 
 
 @Component({

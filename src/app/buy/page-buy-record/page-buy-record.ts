@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {BuyRecord} from "../../../app/shared/buy-record/buy-record.model";
-import {BuyRecordService} from "../../../app/core/buy-record.service";
+import {BuyRecord} from "../../shared/buy-record/buy-record.model";
+import {BuyRecordService} from "../../core/buy-record.service";
 import {NewBuyPage} from "../page-new-buy/page-new-buy";
 
 

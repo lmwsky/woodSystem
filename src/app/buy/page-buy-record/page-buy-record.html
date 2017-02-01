@@ -19,11 +19,5 @@
 
 
 <ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let buyRecord of buyRecordList">
-      <ion-label fixed>{{buyRecord.singlePrice+"元"}}</ion-label>
-      <ion-label fixed>{{buyRecord.sumVolume+"立方米"}}</ion-label>
-      <ion-label fixed>{{buyRecord.actualSumPrice+"元"}}</ion-label>
-    </ion-item>
-    </ion-list>
+  <buy-record-list [buyRecordList]="buyRecordList"></buy-record-list>
 </ion-content>

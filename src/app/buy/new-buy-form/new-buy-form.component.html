@@ -2,8 +2,8 @@
   <ion-list>
     <ion-item>
       <ion-label fixed>规格</ion-label>
-      <ion-select [ngModel]="selectedSpecification"
-                  (ngModelChange)="selectedSpecification=$event;computeSumVolume(); newBuyRecord.specificationId=selectedSpecification.id;"
+      <ion-select [ngModel]="newBuyRecord.specification"
+                  (ngModelChange)="newBuyRecord.setSpecification($event);computeSumVolume();"
                   name="specification">
         <ion-option *ngFor="let specification of specifications" [value]="specification">
           {{specification.name}}

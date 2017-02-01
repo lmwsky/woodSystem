@@ -10,6 +10,7 @@ import {FormsModule} from "@angular/forms";
 import {BuyRecordPage} from "./page-buy-record/page-buy-record";
 import {NewBuyPage} from "./page-new-buy/page-new-buy";
 import {NewBuyFormComponent} from "./new-buy-form/new-buy-form.component";
+import {BuyRecordListComponent} from "./buy-record-list/buy-record-list.component";
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import {NewBuyFormComponent} from "./new-buy-form/new-buy-form.component";
   declarations: [
     BuyRecordPage,
     NewBuyPage,
+    BuyRecordListComponent,
     NewBuyFormComponent
   ],
 

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
-import { TabsPage } from '../modules/tab-module/tabs/tabs';
+import { TabsPage } from './tab/tabs/tabs';
 
 
 @Component({
