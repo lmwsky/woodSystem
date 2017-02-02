@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
 import {SpecificationService} from "../../core/specification.service";
 import {Specification} from "../../shared/specification/specification.model";
@@ -15,19 +15,24 @@ import {BuyRecordPage} from "../page-buy-record/page-buy-record";
   selector: 'page-new-buy',
   templateUrl: 'page-new-buy.html'
 })
-export class NewBuyPage {
+export class NewBuyPage implements OnInit{
+  ngOnInit():void {
+    this.specificationService.getSpecifications().then(
+      specificationList => this.specificationList = specificationList);
+
+  }
   specificationList:Specification[];
 
   constructor(public navCtrl:NavController,
               public navParams:NavParams,
               public specificationService:SpecificationService,
               public buyRecordService:BuyRecordService) {
-    this.specificationList = specificationService.getSpecifications();
-  }
+    }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewBuyFormComponent');
   }
+
   onSubmit(newBuyRecord) {
     console.log('submit the form!');
     this.buyRecordService.addBuyRecord(newBuyRecord);

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {BuyRecord} from "../../shared/buy-record/buy-record.model";
 import {BuyRecordService} from "../../core/buy-record.service";
@@ -15,15 +15,16 @@ import {NewBuyPage} from "../page-new-buy/page-new-buy";
   selector: 'page-buy-record',
   templateUrl: 'page-buy-record.html'
 })
-export class BuyRecordPage {
+export class BuyRecordPage implements OnInit{
 
   buyRecordList:BuyRecord[];
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public buyRecordService:BuyRecordService) {
-    this.buyRecordList=buyRecordService.getBuyRecords();
   }
-
+  ngOnInit():void {
+    this.buyRecordService.getBuyRecords().then(buyRecordList=>this.buyRecordList=buyRecordList);
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuyRecordPage');
   }

@@ -1,5 +1,5 @@
 <form (ngSubmit)="onSubmit()" #createBuyRecordForm="ngForm">
-  <ion-list>
+  <ion-list *ngIf="specifications">
     <ion-item>
       <ion-label fixed>规格</ion-label>
       <ion-select [ngModel]="newBuyRecord.specification"

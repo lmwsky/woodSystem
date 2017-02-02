@@ -14,9 +14,10 @@ import {BuyRecord} from "../../shared/buy-record/buy-record.model";
 })
 export class NewBuyFormComponent implements OnInit {
   ngOnInit():void {
+    this.newBuyRecord = new BuyRecord(0, 0, 0, 0, 0, 0, 0, new Date());
+
     if (this.specifications) {
       let selectedSpecification = this.specifications[0];
-      this.newBuyRecord = new BuyRecord(0, selectedSpecification.id, 0, 0, 0, 0, 0, new Date());
       this.newBuyRecord.setSpecification(selectedSpecification);
     } else {
       console.log("this.specifications is undefined");
@@ -47,7 +48,9 @@ export class NewBuyFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitEvent.emit(this.newBuyRecord);
+    if (this.newBuyRecord.specification)
+      this.submitEvent.emit(this.newBuyRecord);
+
   }
 
 }

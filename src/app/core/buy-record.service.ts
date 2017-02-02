@@ -15,8 +15,8 @@ export class BuyRecordService {
   addBuyRecord(buyRecord:BuyRecord) {
     this.buyRecordList.push(buyRecord);
   }
-  
-  getBuyRecords():BuyRecord[] {
-    return this.buyRecordList;
+
+  getBuyRecords():Promise<BuyRecord[]> {
+    return Promise.resolve(this.buyRecordList);
   }
 }

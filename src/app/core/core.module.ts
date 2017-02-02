@@ -5,6 +5,9 @@ import {NgModule, ErrorHandler, Optional, SkipSelf} from "@angular/core";
 import {SpecificationService} from "./specification.service";
 import {BuyRecordService} from "./buy-record.service";
 import {IonicErrorHandler} from "ionic-angular";
+import { Storage } from '@ionic/storage';
+import './rxjs-operators'
+
 @NgModule({
   imports: [
   ],
@@ -14,7 +17,8 @@ import {IonicErrorHandler} from "ionic-angular";
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: SpecificationService, useClass: SpecificationService},
-    {provide: BuyRecordService, useClass: BuyRecordService}
+    {provide: BuyRecordService, useClass: BuyRecordService},
+    {provide: Storage, useFactory: provideStorage }
   ],
   //flowing is could be used in tabs container
   entryComponents: []
@@ -29,6 +33,10 @@ export class CoreModule {
   parentModule:CoreModule){
     throwIfAlreadyLoaded(parentModule,'CoreModule');
   }
+}
+
+export function provideStorage() {
+   return new Storage(['sqlite', 'websql', 'indexeddb'], { name: '__mydb' });
 }
 function throwIfAlreadyLoaded(parentModule:any,moduleName:string){
   if(parentModule){
