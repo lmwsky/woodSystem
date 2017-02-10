@@ -3,7 +3,7 @@
     <ion-item>
       <ion-label fixed>规格</ion-label>
       <ion-select [ngModel]="newBuyRecord.specification"
-                  (ngModelChange)="newBuyRecord.setSpecification($event);computeSumVolume();"
+                  (ngModelChange)="onChangeSpecification($event)"
                   name="specification">
         <ion-option *ngFor="let specification of specifications" [value]="specification">
           {{specification.name}}
@@ -14,7 +14,7 @@
     <ion-item>
       <ion-label fixed>数目/条</ion-label>
       <ion-input type="number" [ngModel]="newBuyRecord.num"
-                 (ngModelChange)="newBuyRecord.num=$event;computeSumVolume();computeSumPrice();resetActualSumPrice()"
+                 (ngModelChange)="onChangeNum($event)"
                  name="num"></ion-input>
     </ion-item>
 
@@ -23,7 +23,7 @@
       <ion-input type="number"
                  step="0.01"
                  [ngModel]="newBuyRecord.singlePrice"
-                 (ngModelChange)="newBuyRecord.singlePrice=$event;computeSumPrice();resetActualSumPrice()"
+                 (ngModelChange)="onChangeSinglePrice($event)"
                  name="singlePrice"></ion-input>
     </ion-item>
 

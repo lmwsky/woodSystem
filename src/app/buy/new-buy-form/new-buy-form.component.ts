@@ -40,7 +40,6 @@ export class NewBuyFormComponent implements OnInit {
 
   resetActualSumPrice() {
     this.newBuyRecord.actualSumPrice = this.newBuyRecord.computeSumPrice;
-
   }
 
   computeSumVolume() {
@@ -51,6 +50,24 @@ export class NewBuyFormComponent implements OnInit {
     if (this.newBuyRecord.specification)
       this.submitEvent.emit(this.newBuyRecord);
 
+  }
+
+  onChangeSpecification(specification:Specification) {
+    this.newBuyRecord.setSpecification(specification);
+    this.computeSumVolume();
+  }
+
+  onChangeSinglePrice(singlePrice) {
+    this.newBuyRecord.singlePrice = Number.parseFloat(singlePrice);
+    this.computeSumPrice();
+    this.resetActualSumPrice();
+  }
+
+  onChangeNum(num) {
+    this.newBuyRecord.num = Number.parseFloat(num);
+    this.computeSumVolume();
+    this.computeSumPrice();
+    this.resetActualSumPrice()
   }
 
 }
