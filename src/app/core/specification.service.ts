@@ -6,26 +6,58 @@ import {Injectable} from "@angular/core";
 
 @Injectable()
 export class SpecificationService {
-  specificationList:Specification[];
+  specificationList:Specification[]=[];
 
-   constructor() {
-   //todo read from sql
-   this.specificationList = [
-   new Specification(1, "2*6*10", 0.12),
-   new Specification(2, "2*7*10", 0.14),
-   new Specification(3, "2*8*10", 0.16)
-   ];
-   }
+  constructor() {
+    this.initSpecificationList();
+  }
 
-   getSpecifications():Promise<Specification[]> {
-   return Promise.resolve(this.specificationList);
-   }
+  initSpecificationList() {
+    //todo read from sql
 
-   getSpecificationById(id:number):Specification {
-   for (let specification of this.specificationList) {
-   if (specification.id == id)
-   return specification;
-   }
-   return undefined;
-   }
+    let jsonArray = [
+      {
+        "id": 1,
+        "name": "200*2*5",
+        "volume": 0.002
+      },
+      {
+        "id": 2,
+        "name": "200*2*6",
+        "volume": 0.0024
+      },
+      {
+        "id": 3,
+        "name": "200*2*8",
+        "volume": 0.0032
+      },
+      {
+        "id": 4,
+        "name": "200*2*10",
+        "volume": 0.004
+      },
+      {
+        "id": 5,
+        "name": "200*6*10",
+        "volume": 0.012
+      }
+    ];
+
+    for (let json of jsonArray) {
+      let specification = new Specification(json.id, json.name, json.volume);
+      this.specificationList.push(specification);
+    }
+  }
+
+  getSpecifications():Promise<Specification[]> {
+    return Promise.resolve(this.specificationList);
+  }
+
+  getSpecificationById(id:number):Specification {
+    for (let specification of this.specificationList) {
+      if (specification.id == id)
+        return specification;
+    }
+    return undefined;
+  }
 }

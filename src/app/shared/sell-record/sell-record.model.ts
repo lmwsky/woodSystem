@@ -2,7 +2,7 @@ import {Specification} from "../specification/specification.model";
 /**
  * Created by isky on 2017/1/23.
  */
-export class BuyRecord {
+export class SellRecord {
 
   specification:Specification;
 
@@ -13,7 +13,8 @@ export class BuyRecord {
               public computeSumPrice:number,
               public sumVolume:number,
               public actualSumPrice:number,
-              public time:Date) {
+              public time:Date,
+              public buyer:string) {
   }
 
   setSpecification(specification:Specification) {

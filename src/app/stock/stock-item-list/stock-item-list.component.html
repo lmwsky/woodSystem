@@ -1,0 +1,12 @@
+<ion-list>
+  <ion-item>
+    <ion-label >规格</ion-label>
+    <ion-label >数量/条</ion-label>
+    <ion-label >方数/立方米</ion-label>
+  </ion-item>
+  <ion-item *ngFor="let stockItem of stockItemList">
+    <ion-label >{{stockItem.specification.name}}</ion-label>
+    <ion-label >{{stockItem.num}}</ion-label>
+    <ion-label >{{stockItem.getSumVolume().toFixed(2)}}</ion-label>
+  </ion-item>
+</ion-list>

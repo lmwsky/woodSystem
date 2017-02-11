@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import {StockService} from "../../core/stock.service";
+import {StockItem} from "../../shared/stock-item/stock-item.model";
 
 /*
   Generated class for the Stock page.
@@ -13,10 +15,15 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class StockPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  stockItemList:StockItem[];
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+            public stockService:StockService) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad StockPage');
   }
-
+  ngOnInit():void {
+    this.stockService.getStockItemList().then(stockItemList=>this.stockItemList=stockItemList);
+  }
 }

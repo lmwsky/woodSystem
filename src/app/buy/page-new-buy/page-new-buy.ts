@@ -35,7 +35,7 @@ export class NewBuyPage implements OnInit{
 
   onSubmit(newBuyRecord) {
     console.log('submit the form!');
-    this.buyRecordService.addBuyRecord(newBuyRecord);
+    this.buyRecordService.buy(newBuyRecord);
     this.navCtrl.popTo(BuyRecordPage);
     console.log(newBuyRecord);
   }

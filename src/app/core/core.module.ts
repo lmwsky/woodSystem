@@ -7,6 +7,7 @@ import {BuyRecordService} from "./buy-record.service";
 import {IonicErrorHandler} from "ionic-angular";
 import { Storage } from '@ionic/storage';
 import './rxjs-operators'
+import {StockService} from "./stock.service";
 
 @NgModule({
   imports: [
@@ -18,7 +19,9 @@ import './rxjs-operators'
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: SpecificationService, useClass: SpecificationService},
     {provide: BuyRecordService, useClass: BuyRecordService},
-    {provide: Storage, useFactory: provideStorage }
+    {provide: Storage, useFactory: provideStorage },
+    {provide: StockService, useClass: StockService},
+
   ],
   //flowing is could be used in tabs container
   entryComponents: []

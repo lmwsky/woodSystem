@@ -7,6 +7,7 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {StockPage} from "./stock/stock";
+import {StockItemListComponent} from "./stock-item-list/stock-item-list.component";
 
 @NgModule({
   imports: [
@@ -14,8 +15,9 @@ import {StockPage} from "./stock/stock";
     CommonModule,
     FormsModule
   ],
-  declarations: [
+  declarations: [StockItemListComponent,
     StockPage
+    
   ],
 
   exports: [
