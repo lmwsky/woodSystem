@@ -17,17 +17,18 @@ export class StockService {
 
   updateStockItemByBuyRecord(buyRecord:BuyRecord):Promise<StockItem> {
     return new Promise<StockItem>((resolve, reject) => {
-      this.getStockItemBySpecification(buyRecord.specificationId).then((stockItem)=>{
-          stockItem.num += buyRecord.num;
-          this.saveToDB(stockItem);
-          resolve(stockItem);
+      this.getStockItemBySpecification(buyRecord.specificationId).then((stockItem)=> {
+        stockItem.num += buyRecord.num;
+        this.saveToDB(stockItem);
+        resolve(stockItem);
 
-        });
       });
+    });
   }
+
   updateStockItemBySellRecord(sellRecord:SellRecord):Promise<StockItem> {
     return new Promise<StockItem>((resolve, reject) => {
-      this.getStockItemBySpecification(sellRecord.specificationId).then((stockItem)=>{
+      this.getStockItemBySpecification(sellRecord.specificationId).then((stockItem)=> {
         stockItem.num -= sellRecord.num;
         this.saveToDB(stockItem);
         resolve(stockItem);
@@ -35,8 +36,9 @@ export class StockService {
       });
     });
   }
-  saveToDB(stockItem:StockItem){
-    this.storage.set(StockService.DATA_KEY,this.stockItemList);
+
+  saveToDB(stockItem:StockItem) {
+    this.storage.set(StockService.DATA_KEY, this.stockItemList);
   }
 
   getStockItemBySpecification(specificationId:number):Promise<StockItem> {
@@ -77,11 +79,15 @@ export class StockService {
 
   initFromDB():Promise<StockItem[]> {
     return new Promise((resolve, reject) => { // (A)
-      this.storage.get(StockService.DATA_KEY).then((val) => {
-        if (val) {
-          this.stockItemList = val;
-        } else {
-          this.stockItemList = []
+      this.storage.get(StockService.DATA_KEY).then((vals) => {
+        this.stockItemList = [];
+
+        if (vals) {
+          for (let val of vals) {
+            let stockItem = new StockItem(val.id, val.specificationId, val.num);
+            stockItem.setSpecification(this.specificationService.getSpecificationById(stockItem.specificationId));
+            this.stockItemList.push(stockItem);
+          }
         }
         resolve(this.stockItemList);
       });
