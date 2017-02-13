@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {PageNewSellPage} from "../page-new-sell/page-new-sell";
+import {NewSellPage} from "../page-new-sell/page-new-sell";
+import {SellRecord} from "../../shared/sell-record/sell-record.model";
+import {SellRecordService} from "../../core/sell-record.service";
 /*
   Generated class for the PageSellRecord page.
 
@@ -13,14 +15,19 @@ import {PageNewSellPage} from "../page-new-sell/page-new-sell";
 })
 export class SellRecordPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
-
+  sellRecordList:SellRecord[];
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public sellRecordService:SellRecordService) {
+  }
+  ngOnInit():void {
+    this.sellRecordService.getSellRecords().then(sellRecordList=>this.sellRecordList=sellRecordList);
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad SellRecordPage');
   }
   createNewSell() {
-    console.log('createNewSell');
-    this.navCtrl.push(PageNewSellPage, {});
+    this.navCtrl.push(NewSellPage, {});
   }
 
 

@@ -5,65 +5,63 @@ import {BuyRecord} from "../shared/buy-record/buy-record.model";
 import {Injectable} from "@angular/core";
 import {SpecificationService} from "./specification.service";
 import {Storage} from '@ionic/storage';
+import {StockService} from "./stock.service";
+import {SellRecord} from "../shared/sell-record/sell-record.model";
 @Injectable()
 export class SellRecordService {
-  buyRecordList:BuyRecord[];
+  sellRecordList:SellRecord[];
   private isInit = false;
-  static DATA_KEY = "stockItemList";
+  static DATA_KEY = "sellRecordTable";
 
-  constructor(public specificationService:SpecificationService, public storage:Storage) {
+  constructor(public stockService:StockService, public specificationService:SpecificationService, public storage:Storage) {
   }
 
-  addBuyRecord(buyRecord:BuyRecord):Promise<BuyRecord> {
-    return new Promise((resolve, reject) => { // (A)
-      let add = ()=> {
-        if (!this.buyRecordList) {
-          this.buyRecordList = [];
-        }
-        buyRecord.id = this.buyRecordList.length + 1;
-        this.buyRecordList.push(buyRecord);
-        this.storage.set(SellRecordService.DATA_KEY, this.buyRecordList);
-        resolve(buyRecord);
-      };
-      console.log("add");
-
-      console.log(buyRecord);
-      if (this.buyRecordList) {
-        console.log("add to not empty");
-
-        add();
-      } else {
-        console.log("add to empty");
-
-        this.initFromDB().then(()=> {
-          add();
+  sell(sellRecord:SellRecord):Promise<SellRecord> {
+    return new Promise((resolve, reject) => {
+      this.addSellRecord(sellRecord).then((buyRecord)=> {
+        this.stockService.updateStockItemBySellRecord(sellRecord).then(()=> {
+          resolve(buyRecord);
         });
-      }
-
-    });
-
-  }
-
-  initFromDB():Promise<BuyRecord[]> {
-    // set a key/value
-    //storage.set('name', 'Max');
-    // Or to get a key/value pair
-    /*
-     this.storage.get('name').then((val) => {
-
-     console.log('Your name is', val);
-     })*/
-    return new Promise((resolve, reject) => { // (A)
-      this.storage.get(SellRecordService.DATA_KEY).then((val) => {
-        this.buyRecordList = val;
-        resolve(this.buyRecordList);
       });
     });
   }
 
-  getBuyRecords():Promise <BuyRecord[] > {
-    if (this.buyRecordList) {
-      return Promise.resolve(this.buyRecordList);
+  addSellRecord(sellRecord:SellRecord):Promise<SellRecord> {
+    return new Promise((resolve, reject) => {
+
+      this.getSellRecords().then((buyRecordList)=> {
+        sellRecord.id = this.sellRecordList.length + 1;
+        sellRecord.setSpecification(
+          this.specificationService.getSpecificationById(sellRecord.specificationId));
+
+        this.sellRecordList.push(sellRecord);
+
+        this.saveToDB(sellRecord);
+        resolve(sellRecord);
+      });
+    });
+  }
+
+  saveToDB(sellRecord:SellRecord) {
+    this.storage.set(SellRecordService.DATA_KEY, this.sellRecordList);
+  }
+
+  initFromDB():Promise<SellRecord[]> {
+    return new Promise((resolve, reject) => { // (A)
+      this.storage.get(SellRecordService.DATA_KEY).then((val) => {
+        if (val) {
+          this.sellRecordList = val;
+        } else {
+          this.sellRecordList = []
+        }
+        resolve(this.sellRecordList);
+      });
+    });
+  }
+
+  getSellRecords():Promise <SellRecord[]> {
+    if (this.sellRecordList) {
+      return Promise.resolve(this.sellRecordList);
     } else {
       return this.initFromDB();
     }

@@ -6,8 +6,10 @@ import {IonicModule} from "ionic-angular";
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
-import {PageNewSellPage} from "./page-new-sell/page-new-sell";
+import {NewSellPage} from "./page-new-sell/page-new-sell";
 import {SellRecordPage} from "./page-sell-record/page-sell-record";
+import {NewSellFormComponent} from "./new-sell-form/new-sell-form.component";
+import {SellRecordListComponent} from "./sell-record-list/sell-record-list.component";
 
 
 @NgModule({
@@ -17,19 +19,21 @@ import {SellRecordPage} from "./page-sell-record/page-sell-record";
     FormsModule
   ],
   declarations: [
-    PageNewSellPage,
-    SellRecordPage
+    NewSellPage,
+    SellRecordPage,
+    NewSellFormComponent,
+    SellRecordListComponent
   ],
 
   exports: [
-    PageNewSellPage,
+    NewSellPage,
     SellRecordPage
   ],
   providers: [
   ],
   //flowing is could be used in tabs container
   entryComponents: [
-    PageNewSellPage,
+    NewSellPage,
     SellRecordPage
   ]
 })

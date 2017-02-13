@@ -1,0 +1,58 @@
+<form (ngSubmit)="onSubmit()" #createSellRecordForm="ngForm">
+  <ion-list *ngIf="specifications">
+    <ion-item>
+      <ion-label fixed>规格</ion-label>
+      <ion-select [ngModel]="newSellRecord.specification"
+                  (ngModelChange)="onChangeSpecification($event)"
+                  name="specification">
+        <ion-option *ngFor="let specification of specifications" [value]="specification">
+          {{specification.name}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>库存/条</ion-label>
+      <ion-label>{{stockItemNum}}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>数目/条</ion-label>
+      <ion-input type="number" [ngModel]="newSellRecord.num"
+                 (ngModelChange)="onChangeNum($event)"
+                 name="num"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed>单价/元</ion-label>
+      <ion-input type="number"
+                 step="0.01"
+                 [ngModel]="newSellRecord.singlePrice"
+                 (ngModelChange)="onChangeSinglePrice($event)"
+                 name="singlePrice"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed>方数/立方米</ion-label>
+      <ion-label>{{newSellRecord.sumVolume.toFixed(2)}}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>计算总价/元</ion-label>
+      <ion-label>{{newSellRecord.computeSumPrice.toFixed(2)}}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>实际总价/元</ion-label>
+      <ion-input type="number" step="0.01" [(ngModel)]="newSellRecord.actualSumPrice"
+                 name="actualSumPrice"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>买家</ion-label>
+      <ion-input type="text" [ngModel]="newSellRecord.buyer"
+                 name="buyer"></ion-input>
+    </ion-item>
+    <ion-item>
+      <button danger full type="submit" [disabled]="!createSellRecordForm.form.valid">确定</button>
+    </ion-item>
+  </ion-list>
+</form>
