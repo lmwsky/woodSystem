@@ -4,7 +4,7 @@
 import {BuyRecord} from "../shared/buy-record/buy-record.model";
 import {Injectable} from "@angular/core";
 import {SpecificationService} from "./specification.service";
-import {Storage} from '@ionic/storage';
+import {Storage} from "@ionic/storage";
 import {StockService} from "./stock.service";
 @Injectable()
 export class BuyRecordService {
