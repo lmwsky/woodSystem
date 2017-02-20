@@ -12,8 +12,8 @@ export class StorageCollection<T> {
     this.data.push(t);
   }
 
-  remove(index):T {
-    return this.data.splice(index, 1);
+  remove(index) {
+    this.data = this.data.splice(index, 1);
   }
 
   getKey():string {
@@ -22,5 +22,20 @@ export class StorageCollection<T> {
 
   include(date:Date):boolean {
     return this.indexItem.isInclude(date);
+  }
+
+  getDate():Date {
+    return this.indexItem.date;
+  }
+  getDateStr():string{
+    return this.indexItem.dateStr;
+  }
+
+  static clone<T>(collection):StorageCollection<T> {
+    let cloneCollection = new StorageCollection<T>(DateIndexItem.clone(collection.indexItem));
+    cloneCollection.data = collection.data;
+
+    return cloneCollection;
+
   }
 }

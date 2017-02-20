@@ -1,5 +1,15 @@
-<form (ngSubmit)="onSubmit()" #createBuyRecordForm="ngForm">
+<form *ngIf="newBuyRecord" (ngSubmit)="onSubmit()" #createBuyRecordForm="ngForm">
+
   <ion-list *ngIf="specifications">
+    <ion-item *ngIf="newBuyRecord.time">
+      <ion-label>时间</ion-label>
+      <ion-datetime name="time" displayFormat="YYYY/MM/DD" pickerFormat="YYYY MM DD"
+                    [ngModel]="dateStr"
+                    (ngModelChange)="onChangeDate($event)"
+                    cancelText="取消"
+                    doneText="确定"
+      ></ion-datetime>
+    </ion-item>
     <ion-item>
       <ion-label fixed>规格</ion-label>
       <ion-select [ngModel]="newBuyRecord.specification"
@@ -43,7 +53,10 @@
                  name="actualSumPrice"></ion-input>
     </ion-item>
     <ion-item>
-      <button danger full type="submit" [disabled]="!createBuyRecordForm.form.valid">确定</button>
+      <button ion-button large type="submit" [disabled]="!createBuyRecordForm.form.valid">确定</button>
+      <button ion-button large outline (click)="onCancel()">
+        取消
+      </button>
     </ion-item>
   </ion-list>
 </form>

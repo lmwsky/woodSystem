@@ -3,7 +3,7 @@
  */
 import {Component, Input, OnInit} from "@angular/core";
 import {BuyRecord} from "../../shared/buy-record/buy-record.model";
-import {StorageTable} from "../../core/storage-table";
+import {StorageCollection} from "../../core/storage-collection";
 
 /*
 
@@ -11,19 +11,17 @@ import {StorageTable} from "../../core/storage-table";
  Ionic pages and navigation.
  */
 @Component({
-  selector: 'buy-record-list',
-  templateUrl: 'buy-record-list.component.html'
+  selector: 'date-buy-record-list',
+  templateUrl: 'date-buy-record-list.component.html'
 })
-export class BuyRecordListComponent implements OnInit {
+export class DateBuyRecordListComponent implements OnInit {
   ngOnInit():void {
   }
-
   @Input()
-  buyRecordStorageTable:StorageTable<BuyRecord>;
-
+  collection:StorageCollection<BuyRecord>;
+  
   constructor() {
   }
-  onClickLoadMore(){
-    this.buyRecordStorageTable.loadThreeMore();
-  }
+
 }
+

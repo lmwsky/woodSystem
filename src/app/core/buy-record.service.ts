@@ -3,21 +3,37 @@
  */
 import {BuyRecord} from "../shared/buy-record/buy-record.model";
 import {Injectable} from "@angular/core";
-import {SpecificationService} from "./specification.service";
-import {Storage} from "@ionic/storage";
 import {StockService} from "./stock.service";
+import {StorageTable} from "./storage-table";
+import {StorageService} from "./storage.service";
+import {StorageCollection} from "./storage-collection";
 @Injectable()
 export class BuyRecordService {
-  buyRecordList:BuyRecord[];
-  private isInit = false;
-  static DATA_KEY = "buyRecordTable";
+  static TABLE_NAME = "BuyRecordsTable";
+  storageTable:StorageTable<BuyRecord>;
 
-  constructor(public stockService:StockService, public specificationService:SpecificationService, public storage:Storage) {
+  constructor(public storageService:StorageService,
+              public stockService:StockService) {
+  }
+
+  getStorageTable():Promise<StorageTable<BuyRecord>> {
+
+    return new Promise((resolve, reject) => {
+      if (!this.storageTable) {
+        this.storageService.initStorageTable<BuyRecord>(BuyRecordService.TABLE_NAME).then((storageTable)=> {
+          this.storageTable = storageTable;
+          console.log(this.storageTable);
+          resolve(this.storageTable);
+        }).catch(reject);
+      } else {
+        resolve(this.storageTable);
+      }
+    });
   }
 
   buy(buyRecord:BuyRecord):Promise<BuyRecord> {
     return new Promise((resolve, reject) => {
-      this.addBuyRecord(buyRecord).then((buyRecord)=> {
+      this.storageTable.add(buyRecord, new Date(buyRecord.timeStr)).then(()=> {
         this.stockService.updateStockItemByBuyRecord(buyRecord).then(()=> {
           resolve(buyRecord);
         });
@@ -25,44 +41,11 @@ export class BuyRecordService {
     });
   }
 
-  addBuyRecord(buyRecord:BuyRecord):Promise<BuyRecord> {
+  getBuyRecords():Promise <StorageCollection<BuyRecord>[]> {
     return new Promise((resolve, reject) => {
-
-      this.getBuyRecords().then((buyRecordList)=> {
-        buyRecord.id = this.buyRecordList.length + 1;
-        buyRecord.setSpecification(
-          this.specificationService.getSpecificationById(buyRecord.specificationId));
-
-        this.buyRecordList.push(buyRecord);
-
-        this.saveToDB(buyRecord);
-        resolve(buyRecord);
+      this.getStorageTable().then((storageTable:StorageTable<BuyRecord>)=> {
+        resolve(storageTable.collectionList);
       });
     });
-  }
-
-  saveToDB(buyRecord:BuyRecord) {
-    this.storage.set(BuyRecordService.DATA_KEY, this.buyRecordList);
-  }
-
-  initFromDB():Promise<BuyRecord[]> {
-    return new Promise((resolve, reject) => { // (A)
-      this.storage.get(BuyRecordService.DATA_KEY).then((val) => {
-        if (val) {
-          this.buyRecordList = val;
-        } else {
-          this.buyRecordList = []
-        }
-        resolve(this.buyRecordList);
-      });
-    });
-  }
-
-  getBuyRecords():Promise <BuyRecord[]> {
-    if (this.buyRecordList) {
-      return Promise.resolve(this.buyRecordList);
-    } else {
-      return this.initFromDB();
-    }
   }
 }

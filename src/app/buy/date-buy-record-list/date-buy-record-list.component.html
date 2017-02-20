@@ -1,0 +1,11 @@
+<ion-list *ngIf="collection&&collection.data.length>0">
+  <ion-item-divider color="light">{{collection.getDateStr()}}</ion-item-divider>
+  <ion-item *ngFor="let buyRecord of collection.data">
+    <ion-label>{{buyRecord.specification.name}}</ion-label>
+    <ion-label>{{buyRecord.singlePrice.toFixed(2)}}</ion-label>
+    <ion-label>{{buyRecord.num}}</ion-label>
+    <ion-label>{{buyRecord.sumVolume.toFixed(2)}}</ion-label>
+    <ion-label>{{buyRecord.actualSumPrice.toFixed(2)}}</ion-label>
+  </ion-item>
+</ion-list>
+

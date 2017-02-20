@@ -2,6 +2,7 @@ import {Component, Input, OnInit, EventEmitter, Output} from "@angular/core";
 import {Specification} from "../../shared/specification/specification.model";
 import {SellRecord} from "../../shared/sell-record/sell-record.model";
 import {StockService} from "../../core/stock.service";
+import {StorageFactory} from "../../core/storage-factory";
 
 /*
  Generated class for the PageNewBuy page.
@@ -15,14 +16,8 @@ import {StockService} from "../../core/stock.service";
 })
 export class NewSellFormComponent implements OnInit {
   ngOnInit():void {
-    this.newSellRecord = new SellRecord(0, 0, 0, 0, 0, 0, 0, new Date(), "老板");
-
-    if (this.specifications) {
-      let selectedSpecification = this.specifications[0];
-      this.newSellRecord.setSpecification(selectedSpecification);
-    } else {
-      console.log("this.specifications is undefined");
-    }
+    this.newSellRecord = StorageFactory.createSellRecord();
+    this.initDefaultSpecification();
   }
 
   @Input()
@@ -39,6 +34,14 @@ export class NewSellFormComponent implements OnInit {
   constructor(public stockService:StockService) {
   }
 
+  initDefaultSpecification(){
+    if (this.specifications) {
+      let selectedSpecification = this.specifications[0];
+      this.newSellRecord.setSpecification(selectedSpecification);
+    } else {
+      console.log("this.specifications is undefined");
+    }
+  }
   computeSumPrice() {
     this.newSellRecord.computeSumPrice = this.newSellRecord.num * this.newSellRecord.singlePrice;
   }

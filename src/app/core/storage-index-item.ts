@@ -4,30 +4,31 @@
 export interface IndexItem {
   getIndex():string;
 }
-export class DateIndexItem implements IndexItem {
-  constructor(public date:Date) {
+export class DateIndexItem {
+  date:Date;
+
+  constructor(public dateStr:string) {
+    this.date = new Date(dateStr);
   }
 
   getIndex():string {
-    return this.date.toDateString();
+    return this.dateStr;
   }
 
   isInclude(date:Date):boolean {
-    return this.date.toDateString() == date.toDateString();
+    return this.date.toLocaleDateString() == date.toLocaleDateString();
   }
-  compareTo(dateIndexItem:DateIndexItem):boolean{
-    return this.date>dateIndexItem.date;
+
+  compareTo(dateIndexItem:DateIndexItem):boolean {
+    return this.date > dateIndexItem.date;
   }
 
   after(dateIndexItem:DateIndexItem) {
-    return this.date>=dateIndexItem.date;
-  }
-}
-export class StringIndexItem implements IndexItem {
-  constructor(public str:string) {
+    return this.date >= dateIndexItem.date;
   }
 
-  getIndex():string {
-    return this.str;
+  static clone(dateIndexItem):DateIndexItem {
+    return new DateIndexItem(dateIndexItem.dateStr);
   }
 }
+

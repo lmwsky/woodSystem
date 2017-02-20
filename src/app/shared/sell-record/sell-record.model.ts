@@ -5,7 +5,7 @@ import {Specification} from "../specification/specification.model";
 export class SellRecord {
 
   specification:Specification;
-
+  time:Date;
   constructor(public id:number,
               public specificationId:number,
               public singlePrice:number,
@@ -13,8 +13,9 @@ export class SellRecord {
               public computeSumPrice:number,
               public sumVolume:number,
               public actualSumPrice:number,
-              public time:Date,
+              public timeStr:string,
               public buyer:string) {
+    this.time=new Date(timeStr);
   }
 
   setSpecification(specification:Specification) {

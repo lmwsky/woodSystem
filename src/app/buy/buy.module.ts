@@ -11,6 +11,7 @@ import {BuyRecordPage} from "./page-buy-record/page-buy-record";
 import {NewBuyPage} from "./page-new-buy/page-new-buy";
 import {NewBuyFormComponent} from "./new-buy-form/new-buy-form.component";
 import {BuyRecordListComponent} from "./buy-record-list/buy-record-list.component";
+import {DateBuyRecordListComponent} from "./date-buy-record-list/date-buy-record-list.component";
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import {BuyRecordListComponent} from "./buy-record-list/buy-record-list.componen
     BuyRecordPage,
     NewBuyPage,
     BuyRecordListComponent,
+    DateBuyRecordListComponent,
     NewBuyFormComponent
   ],
 
