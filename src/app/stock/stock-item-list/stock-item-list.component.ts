@@ -15,16 +15,12 @@ import {StockItem} from "../../shared/stock-item/stock-item.model";
 })
 export class StockItemListComponent implements OnInit {
   ngOnInit():void {
-    if (this.stockItemList) {
-    } else {
-      console.log("this.stockItemList is undefined");
-    }
   }
 
   @Input()
   stockItemList:StockItem[];
-  
+
   constructor() {
   }
-  
+
 }

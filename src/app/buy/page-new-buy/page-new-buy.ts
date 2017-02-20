@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {NavController, NavParams} from "ionic-angular";
+import {NavController, ToastController} from "ionic-angular";
 import {SpecificationService} from "../../core/specification.service";
 import {Specification} from "../../shared/specification/specification.model";
 import {BuyRecordService} from "../../core/buy-record.service";
@@ -26,12 +26,25 @@ export class NewBuyPage implements OnInit {
 
   constructor(public navCtrl:NavController,
               public specificationService:SpecificationService,
-              public buyRecordService:BuyRecordService) {
+              public buyRecordService:BuyRecordService,
+              public toastCtrl:ToastController) {
   }
+
+  presentToast(text:string) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000
+    });
+    toast.present();
+  }
+
   onSubmit(newBuyRecord) {
-    this.buyRecordService.buy(newBuyRecord);
-    this.navCtrl.popTo(BuyRecordPage);
+    this.buyRecordService.buy(newBuyRecord).then(()=> {
+      this.presentToast("添加成功");
+      this.navCtrl.popTo(BuyRecordPage);
+    });
   }
+
   onCancel() {
     this.navCtrl.popTo(BuyRecordPage);
   }

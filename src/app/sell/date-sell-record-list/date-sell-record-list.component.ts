@@ -2,8 +2,8 @@
  * Created by isky on 2017/1/25.
  */
 import {Component, Input, OnInit} from "@angular/core";
+import {StorageCollection} from "../../core/storage-collection";
 import {SellRecord} from "../../shared/sell-record/sell-record.model";
-import {StorageTable} from "../../core/storage-table";
 
 /*
 
@@ -11,19 +11,17 @@ import {StorageTable} from "../../core/storage-table";
  Ionic pages and navigation.
  */
 @Component({
-  selector: 'sell-record-list',
-  templateUrl: 'sell-record-list.component.html'
+  selector: 'date-sell-record-list',
+  templateUrl: 'date-sell-record-list.component.html'
 })
-export class SellRecordListComponent implements OnInit {
+export class DateSellRecordListComponent implements OnInit {
   ngOnInit():void {
   }
-
   @Input()
-  sellRecordStorageTable:StorageTable<SellRecord>;
+  collection:StorageCollection<SellRecord>;
   
   constructor() {
   }
-  onClickLoadMore(){
-    this.sellRecordStorageTable.loadThreeMore();
-  }
+
 }
+

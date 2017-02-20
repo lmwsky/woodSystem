@@ -17,31 +17,29 @@ import {StorageFactory} from "../../core/storage-factory";
 export class NewSellFormComponent implements OnInit {
   ngOnInit():void {
     this.newSellRecord = StorageFactory.createSellRecord();
-    this.initDefaultSpecification();
+    if (this.specifications) {
+      let selectedSpecification = this.specifications[0];
+      this.newSellRecord.setSpecification(selectedSpecification);
+    }
+    this.dateStr = this.newSellRecord.time.toLocaleDateString();
   }
 
   @Input()
   specifications:Specification[];
   newSellRecord:SellRecord;
 
-
+  dateStr:string = new Date().toLocaleDateString();
   @Output()
   submitEvent = new EventEmitter();
 
-
+  @Output()
+  cancelEvent = new EventEmitter();
+  
   stockItemNum:number = 0;
 
   constructor(public stockService:StockService) {
   }
-
-  initDefaultSpecification(){
-    if (this.specifications) {
-      let selectedSpecification = this.specifications[0];
-      this.newSellRecord.setSpecification(selectedSpecification);
-    } else {
-      console.log("this.specifications is undefined");
-    }
-  }
+  
   computeSumPrice() {
     this.newSellRecord.computeSumPrice = this.newSellRecord.num * this.newSellRecord.singlePrice;
   }
@@ -63,7 +61,9 @@ export class NewSellFormComponent implements OnInit {
       });
     }
   }
-
+  onCancel() {
+    this.cancelEvent.emit("cancel");
+  }
   onChangeSpecification(specification:Specification) {
     this.stockService.getStockItemBySpecification(specification.id).then((stockItem)=> {
       if (stockItem) {
@@ -89,5 +89,11 @@ export class NewSellFormComponent implements OnInit {
     this.computeSumPrice();
     this.resetActualSumPrice()
   }
-
+  onChangeDate(dateStr:string) {
+    if (dateStr) {
+      this.dateStr = dateStr;
+      this.newSellRecord.timeStr = dateStr;
+      this.newSellRecord.time = new Date(dateStr);
+    }
+  }
 }

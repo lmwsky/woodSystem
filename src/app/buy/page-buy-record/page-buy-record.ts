@@ -36,14 +36,12 @@ export class BuyRecordPage implements OnInit {
 
   ngOnInit():void {
     this.presentLoadingDefault("加载数据中");
-    console.log("1.start loading");
     this.buyRecordService.getStorageTable().then((buyRecordStorageTable)=> {
       
       this.buyRecordStorageTable = buyRecordStorageTable;
       this.loading.dismissAll();
       this.loading = undefined;
     });
-    
   }
 
   createNewBuy() {

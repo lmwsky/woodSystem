@@ -1,20 +1,36 @@
-<ion-list>
+<ion-card *ngIf="!sellRecordStorageTable||sellRecordStorageTable.currentSize()<=0">
+  <ion-card-header>
+    没有记录
+  </ion-card-header>
+
+  <ion-card-content>
+    暂时没有记录
+  </ion-card-content>
+</ion-card>
+<ion-list *ngIf="sellRecordStorageTable&&sellRecordStorageTable.currentSize()>0">
   <ion-item>
-    <ion-label >规格</ion-label>
-    <ion-label >单价/元</ion-label>
-    <ion-label >数量/条</ion-label>
-    <ion-label >方数/立方米</ion-label>
-    <ion-label >总价/元</ion-label>
-    <ion-label >买家</ion-label>
+    <ion-label>规格</ion-label>
+    <ion-label>单价/元</ion-label>
+    <ion-label>数量/条</ion-label>
+    <ion-label>方数/立方米</ion-label>
+    <ion-label>总价/元</ion-label>
+    <ion-label>买家</ion-label>
 
   </ion-item>
   <ion-item *ngFor="let sellRecord of sellRecordList">
-    <ion-label >{{sellRecord.specification.name}}</ion-label>
-    <ion-label >{{sellRecord.singlePrice.toFixed(2)}}</ion-label>
-    <ion-label >{{sellRecord.num}}</ion-label>
-    <ion-label >{{sellRecord.sumVolume.toFixed(2)}}</ion-label>
-    <ion-label >{{sellRecord.actualSumPrice.toFixed(2)}}</ion-label>
-    <ion-label >{{sellRecord.buyer}}</ion-label>
+    <ion-label>{{sellRecord.specification.name}}</ion-label>
+    <ion-label>{{sellRecord.singlePrice.toFixed(2)}}</ion-label>
+    <ion-label>{{sellRecord.num}}</ion-label>
+    <ion-label>{{sellRecord.sumVolume.toFixed(2)}}</ion-label>
+    <ion-label>{{sellRecord.actualSumPrice.toFixed(2)}}</ion-label>
+    <ion-label>{{sellRecord.buyer}}</ion-label>
 
   </ion-item>
+  <date-sell-record-list *ngFor="let sellRecordCollection of sellRecordStorageTable.collectionList"
+                         [collection]="sellRecordCollection">
+
+  </date-sell-record-list>
+  <button *ngIf="sellRecordStorageTable.hasNext()" ion-button block (click)="onClickLoadMore()">
+    加载更多
+  </button>
 </ion-list>

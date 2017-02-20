@@ -8,18 +8,14 @@
 
   <ion-navbar>
     <ion-title>出货记录</ion-title>
-        <ion-buttons end>
-          <button icon-button icon-only (click)="createNewSell()">
-            <ion-icon name='add' ></ion-icon>
-          </button>
-        </ion-buttons>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="createNewSell()">
+        <ion-icon name='add'></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
-
-
 </ion-header>
 
-
 <ion-content padding>
-  <sell-record-list [sellRecordList]="sellRecordList"></sell-record-list>
+  <sell-record-list *ngIf="sellRecordStorageTable" [sellRecordStorageTable]="sellRecordStorageTable"></sell-record-list>
 </ion-content>

@@ -2,7 +2,6 @@
  * Created by isky on 2017/1/25.
  */
 import {IonicModule} from "ionic-angular";
-
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
@@ -10,6 +9,7 @@ import {NewSellPage} from "./page-new-sell/page-new-sell";
 import {SellRecordPage} from "./page-sell-record/page-sell-record";
 import {NewSellFormComponent} from "./new-sell-form/new-sell-form.component";
 import {SellRecordListComponent} from "./sell-record-list/sell-record-list.component";
+import {DateSellRecordListComponent} from "./date-sell-record-list/date-sell-record-list.component";
 
 
 @NgModule({
@@ -22,15 +22,15 @@ import {SellRecordListComponent} from "./sell-record-list/sell-record-list.compo
     NewSellPage,
     SellRecordPage,
     NewSellFormComponent,
-    SellRecordListComponent
+    SellRecordListComponent,
+    DateSellRecordListComponent
   ],
 
   exports: [
     NewSellPage,
     SellRecordPage
   ],
-  providers: [
-  ],
+  providers: [],
   //flowing is could be used in tabs container
   entryComponents: [
     NewSellPage,

@@ -1,69 +1,50 @@
 /**
  * Created by isky on 2017/1/25.
  */
-import {BuyRecord} from "../shared/buy-record/buy-record.model";
 import {Injectable} from "@angular/core";
-import {SpecificationService} from "./specification.service";
-import {Storage} from '@ionic/storage';
 import {StockService} from "./stock.service";
 import {SellRecord} from "../shared/sell-record/sell-record.model";
+import {StorageService} from "./storage.service";
+import {StorageTable} from "./storage-table";
+import {StorageCollection} from "./storage-collection";
 @Injectable()
 export class SellRecordService {
-  sellRecordList:SellRecord[];
-  private isInit = false;
-  static DATA_KEY = "sellRecordTable";
+  static TABLE_NAME = "SellRecordListTable";
+  storageTable:StorageTable<SellRecord>;
 
-  constructor(public stockService:StockService, public specificationService:SpecificationService, public storage:Storage) {
+  constructor(public storageService:StorageService,
+              public stockService:StockService) {
+  }
+
+  getStorageTable():Promise<StorageTable<SellRecord>> {
+    return new Promise((resolve, reject) => {
+      if (!this.storageTable) {
+        this.storageService.initStorageTable<SellRecord>(SellRecordService.TABLE_NAME).then((storageTable)=> {
+          this.storageTable = storageTable;
+          console.log(this.storageTable);
+          resolve(this.storageTable);
+        }).catch(reject);
+      } else {
+        resolve(this.storageTable);
+      }
+    });
   }
 
   sell(sellRecord:SellRecord):Promise<SellRecord> {
     return new Promise((resolve, reject) => {
-      this.addSellRecord(sellRecord).then((buyRecord)=> {
+      this.storageTable.add(sellRecord, new Date(sellRecord.timeStr)).then(()=> {
         this.stockService.updateStockItemBySellRecord(sellRecord).then(()=> {
-          resolve(buyRecord);
+          resolve(sellRecord);
         });
       });
     });
   }
 
-  addSellRecord(sellRecord:SellRecord):Promise<SellRecord> {
+  getSellRecords():Promise <StorageCollection<SellRecord>[]> {
     return new Promise((resolve, reject) => {
-
-      this.getSellRecords().then((buyRecordList)=> {
-        sellRecord.id = this.sellRecordList.length + 1;
-        sellRecord.setSpecification(
-          this.specificationService.getSpecificationById(sellRecord.specificationId));
-
-        this.sellRecordList.push(sellRecord);
-
-        this.saveToDB(sellRecord);
-        resolve(sellRecord);
+      this.getStorageTable().then((storageTable:StorageTable<SellRecord>)=> {
+        resolve(storageTable.collectionList);
       });
     });
-  }
-
-  saveToDB(sellRecord:SellRecord) {
-    this.storage.set(SellRecordService.DATA_KEY, this.sellRecordList);
-  }
-
-  initFromDB():Promise<SellRecord[]> {
-    return new Promise((resolve, reject) => { // (A)
-      this.storage.get(SellRecordService.DATA_KEY).then((val) => {
-        if (val) {
-          this.sellRecordList = val;
-        } else {
-          this.sellRecordList = []
-        }
-        resolve(this.sellRecordList);
-      });
-    });
-  }
-
-  getSellRecords():Promise <SellRecord[]> {
-    if (this.sellRecordList) {
-      return Promise.resolve(this.sellRecordList);
-    } else {
-      return this.initFromDB();
-    }
   }
 }
