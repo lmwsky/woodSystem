@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {NavController, ToastController} from "ionic-angular";
+import {NavController, ToastController, Loading, LoadingController} from "ionic-angular";
 import {Specification} from "../../shared/specification/specification.model";
 import {SpecificationService} from "../../core/specification.service";
 import {SellRecordService} from "../../core/sell-record.service";
@@ -16,6 +16,8 @@ import {SellRecordPage} from "../page-sell-record/page-sell-record";
   templateUrl: 'page-new-sell.html'
 })
 export class NewSellPage {
+  private loading:Loading;
+
   ngOnInit():void {
     this.specificationService.getSpecifications().then(
       specificationList => this.specificationList = specificationList);
@@ -26,19 +28,30 @@ export class NewSellPage {
   constructor(public navCtrl:NavController,
               public specificationService:SpecificationService,
               public sellRecordService:SellRecordService,
-              public toastCtrl:ToastController) {
+              public toastCtrl:ToastController,
+              public loadingCtrl:LoadingController) {
   }
 
   presentToast(text:string) {
     let toast = this.toastCtrl.create({
       message: text,
-      duration: 3000
+      duration: 500
     });
     toast.present();
   }
 
+  presentLoadingDefault(hint:string) {
+    this.loading = this.loadingCtrl.create({
+      content: hint
+    });
+    this.loading.present();
+  }
+
   onSubmit(newSellRecord) {
+    this.presentLoadingDefault("添加中");
     this.sellRecordService.sell(newSellRecord).then(()=> {
+      this.loading.dismissAll();
+      this.loading = undefined;
       this.presentToast("添加成功");
       this.navCtrl.popTo(SellRecordPage);
       console.log(newSellRecord);
