@@ -130,6 +130,11 @@ export class SpecificationService {
         "id": 23,
         "name": "1.2x6x200",
         "volume": 0.00144
+      },
+      {
+        "id": 24,
+        "name": "4x12x200",
+        "volume": 0.0096
       }
     ];
 

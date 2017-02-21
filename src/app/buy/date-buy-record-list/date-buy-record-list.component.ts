@@ -4,6 +4,7 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {BuyRecord} from "../../shared/buy-record/buy-record.model";
 import {StorageCollection} from "../../core/storage-collection";
+import {StatisticsUtil} from "../../shared/statistics-util";
 
 /*
 
@@ -17,11 +18,21 @@ import {StorageCollection} from "../../core/storage-collection";
 export class DateBuyRecordListComponent implements OnInit {
   ngOnInit():void {
   }
+
   @Input()
   collection:StorageCollection<BuyRecord>;
-  
+
   constructor() {
   }
 
+  countSpecificationNum():number {
+    return StatisticsUtil.countSpecificationNum(this.collection);
+  }
+  countSumVolume():number {
+    return StatisticsUtil.countSumVolume(this.collection);
+  }
+  countSumPrice():number {
+    return StatisticsUtil.countSumPrice(this.collection);
+  }
 }
 

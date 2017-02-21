@@ -12,6 +12,14 @@ export class StorageCollection<T> {
     this.data.push(t);
   }
 
+  size():number {
+    if (this.data) {
+      return this.data.length;
+    } else {
+      return 0;
+    }
+  }
+
   remove(index) {
     this.data = this.data.splice(index, 1);
   }
@@ -27,7 +35,8 @@ export class StorageCollection<T> {
   getDate():Date {
     return this.indexItem.date;
   }
-  getDateStr():string{
+
+  getDateStr():string {
     return this.indexItem.dateStr;
   }
 

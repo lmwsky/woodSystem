@@ -1,5 +1,5 @@
 <ion-list *ngIf="collection&&collection.data.length>0">
-  <ion-item-divider color="light">{{collection.getDateStr()}}</ion-item-divider>
+  <ion-item-divider color="danger">{{collection.getDateStr()}}</ion-item-divider>
   <ion-item *ngFor="let sellRecord of collection.data">
     <ion-label>{{sellRecord.specification.name}}</ion-label>
     <ion-label>{{sellRecord.singlePrice.toFixed(2)}}</ion-label>
@@ -9,5 +9,15 @@
     <ion-label>{{sellRecord.buyer}}</ion-label>
 
   </ion-item>
+  <ion-item-divider color="secondary">
+    <ion-label>总方数</ion-label>
+    <ion-label>{{countSumVolume().toFixed(6)}}</ion-label>
+    <ion-label>合计</ion-label>
+    <ion-label>{{countSumPrice().toFixed(2)}}</ion-label>
+    <ion-label>笔数</ion-label>
+    <ion-label>{{collection.size()}}</ion-label>
+    <ion-label>种类数</ion-label>
+    <ion-label>{{countSpecificationNum()}}</ion-label>
+  </ion-item-divider>
 </ion-list>
 

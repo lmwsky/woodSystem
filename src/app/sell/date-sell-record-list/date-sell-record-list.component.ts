@@ -4,6 +4,7 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {StorageCollection} from "../../core/storage-collection";
 import {SellRecord} from "../../shared/sell-record/sell-record.model";
+import {StatisticsUtil} from "../../shared/statistics-util";
 
 /*
 
@@ -22,6 +23,14 @@ export class DateSellRecordListComponent implements OnInit {
   
   constructor() {
   }
-
+  countSpecificationNum():number {
+    return StatisticsUtil.countSpecificationNum(this.collection);
+  }
+  countSumVolume():number {
+    return StatisticsUtil.countSumVolume(this.collection);
+  }
+  countSumPrice():number {
+    return StatisticsUtil.countSumPrice(this.collection);
+  }
 }
 
