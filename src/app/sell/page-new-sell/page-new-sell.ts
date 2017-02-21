@@ -50,11 +50,13 @@ export class NewSellPage {
   onSubmit(newSellRecord) {
     this.presentLoadingDefault("添加中");
     this.sellRecordService.sell(newSellRecord).then(()=> {
-      this.loading.dismissAll();
-      this.loading = undefined;
-      this.presentToast("添加成功");
-      this.navCtrl.popTo(SellRecordPage);
-      console.log(newSellRecord);
+      this.sellRecordService.initStorageTableCache().then(()=> {
+        this.loading.dismissAll();
+        this.loading = undefined;
+        this.presentToast("添加成功");
+        this.navCtrl.popTo(SellRecordPage);
+        console.log(newSellRecord);
+      });
     });
   }
 

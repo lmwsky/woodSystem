@@ -19,9 +19,10 @@ export class NewSellFormComponent implements OnInit {
     this.newSellRecord = StorageFactory.createSellRecord();
     if (this.specifications) {
       let selectedSpecification = this.specifications[0];
-      this.newSellRecord.setSpecification(selectedSpecification);
+      this.onChangeSpecification(selectedSpecification);
     }
     this.dateStr = this.newSellRecord.time.toLocaleDateString();
+
   }
 
   @Input()
@@ -34,12 +35,12 @@ export class NewSellFormComponent implements OnInit {
 
   @Output()
   cancelEvent = new EventEmitter();
-  
+
   stockItemNum:number = 0;
 
   constructor(public stockService:StockService) {
   }
-  
+
   computeSumPrice() {
     this.newSellRecord.computeSumPrice = this.newSellRecord.num * this.newSellRecord.singlePrice;
   }
@@ -61,9 +62,11 @@ export class NewSellFormComponent implements OnInit {
       });
     }
   }
+
   onCancel() {
     this.cancelEvent.emit("cancel");
   }
+
   onChangeSpecification(specification:Specification) {
     this.stockService.getStockItemBySpecification(specification.id).then((stockItem)=> {
       if (stockItem) {
@@ -74,7 +77,6 @@ export class NewSellFormComponent implements OnInit {
     });
     this.newSellRecord.setSpecification(specification);
     this.computeSumVolume();
-
   }
 
   onChangeSinglePrice(singlePrice) {
@@ -89,6 +91,7 @@ export class NewSellFormComponent implements OnInit {
     this.computeSumPrice();
     this.resetActualSumPrice()
   }
+
   onChangeDate(dateStr:string) {
     if (dateStr) {
       this.dateStr = dateStr;

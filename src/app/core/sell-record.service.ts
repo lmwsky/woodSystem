@@ -47,4 +47,12 @@ export class SellRecordService {
       });
     });
   }
+
+  initStorageTableCache():Promise<boolean> {
+    if (this.storageTable) {
+      return this.storageTable.loadOneMore();
+    } else {
+      return Promise.resolve(false);
+    }
+  }
 }

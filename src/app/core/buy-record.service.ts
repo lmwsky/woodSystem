@@ -15,9 +15,14 @@ export class BuyRecordService {
   constructor(public storageService:StorageService,
               public stockService:StockService) {
   }
-
+  initStorageTableCache():Promise<boolean>{
+    if(this.storageTable){
+      return this.storageTable.loadOneMore();
+    }else {
+      return Promise.resolve(false);
+    }
+  }
   getStorageTable():Promise<StorageTable<BuyRecord>> {
-
     return new Promise((resolve, reject) => {
       if (!this.storageTable) {
         this.storageService.initStorageTable<BuyRecord>(BuyRecordService.TABLE_NAME).then((storageTable)=> {
