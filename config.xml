@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.ionicframework.woodsystem726619" version="0.0.1" xmlns="http://www.w3.org/ns/widgets">
-  <name>woodSystem</name>
+  <name>木材管理系统</name>
   <description>An awesome Ionic/Cordova app.</description>
   <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
   <content src="index.html"/>
