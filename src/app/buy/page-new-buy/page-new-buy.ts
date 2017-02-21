@@ -58,8 +58,5 @@ export class NewBuyPage implements OnInit {
       });
     });
   }
-
-  onCancel() {
-    this.navCtrl.popTo(BuyRecordPage);
-  }
+  
 }

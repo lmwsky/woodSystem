@@ -33,9 +33,6 @@ export class NewSellFormComponent implements OnInit {
   @Output()
   submitEvent = new EventEmitter();
 
-  @Output()
-  cancelEvent = new EventEmitter();
-
   stockItemNum:number = 0;
 
   constructor(public stockService:StockService) {
@@ -61,10 +58,6 @@ export class NewSellFormComponent implements OnInit {
           this.submitEvent.emit(this.newSellRecord);
       });
     }
-  }
-
-  onCancel() {
-    this.cancelEvent.emit("cancel");
   }
 
   onChangeSpecification(specification:Specification) {

@@ -53,10 +53,7 @@
                  name="actualSumPrice"></ion-input>
     </ion-item>
     <ion-item>
-      <button ion-button large type="submit" [disabled]="!createBuyRecordForm.form.valid">确定</button>
-      <button ion-button large outline (click)="onCancel()">
-        取消
-      </button>
+      <button ion-button block type="submit" [disabled]="!createBuyRecordForm.form.valid">确定</button>
     </ion-item>
   </ion-list>
 </form>

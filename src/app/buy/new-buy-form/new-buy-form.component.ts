@@ -30,10 +30,7 @@ export class NewBuyFormComponent implements OnInit {
   dateStr:string = new Date().toLocaleDateString();
   @Output()
   submitEvent = new EventEmitter();
-
-  @Output()
-  cancelEvent = new EventEmitter();
-
+  
   constructor() {
   }
 
@@ -54,10 +51,7 @@ export class NewBuyFormComponent implements OnInit {
       this.submitEvent.emit(this.newBuyRecord);
 
   }
-
-  onCancel() {
-    this.cancelEvent.emit("cancel");
-  }
+  
 
   onChangeSpecification(specification:Specification) {
     this.newBuyRecord.setSpecification(specification);

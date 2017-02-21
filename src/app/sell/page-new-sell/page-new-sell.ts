@@ -59,8 +59,5 @@ export class NewSellPage {
       });
     });
   }
-
-  onCancel() {
-    this.navCtrl.popTo(SellRecordPage);
-  }
+  
 }
