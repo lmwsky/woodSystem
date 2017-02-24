@@ -10,6 +10,7 @@ import './rxjs-operators'
 import {StockService} from "./stock.service";
 import {SellRecordService} from "./sell-record.service";
 import {StorageService} from "./storage.service";
+import {UpdateAppService} from "./update-app.service";
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import {StorageService} from "./storage.service";
     {provide: SellRecordService, useClass: SellRecordService},
     {provide: Storage, useFactory: provideStorage },
     {provide: StockService, useClass: StockService},
-    {provide: StorageService, useClass: StorageService}
+    {provide: StorageService, useClass: StorageService},
+    {provide: UpdateAppService, useClass: UpdateAppService}
 
   ],
   //flowing is could be used in tabs container

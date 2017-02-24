@@ -1,11 +1,11 @@
-import {StorageCollection} from "./storage-collection";
+import {StorageCollection, IdObject} from "./storage-collection";
 import {StorageIndexTable} from "./storage-index";
 import {StorageService} from "./storage.service";
 import {DateIndexItem} from "./storage-index-item";
 /**
  * Created by isky on 2017/2/18.
  */
-export class StorageTable<T> {
+export class StorageTable<T extends IdObject> {
   //the storage loading in memory from db, is not complete
   collectionList:StorageCollection<T>[] = [];
   storageIndexTable:StorageIndexTable;
@@ -58,15 +58,23 @@ export class StorageTable<T> {
   loadOneMore():Promise<boolean> {
     return new Promise<boolean>((resolve, reject)=> {
       if (this.hasNext()) {
-        let key = this.storageIndexTable.getIndexItemKeyByIndex(this.nextLoadingPos);
-        this.load(key).then((collection)=> {
-          this.collectionList.push(StorageCollection.clone<T>(collection));
+        this.loadCollectionByIndexPos(this.nextLoadingPos).then(()=> {
           this.nextLoadingPos++;
           resolve(true);
-        }).catch(reject);
+        });
       } else {
         resolve(false);
       }
+    });
+  }
+
+  loadCollectionByIndexPos(indexPos:number):Promise<boolean> {
+    return new Promise<boolean>((resolve, reject)=> {
+      let key = this.storageIndexTable.getIndexItemKeyByIndex(indexPos);
+      this.load(key).then((collection)=> {
+        this.collectionList.push(StorageCollection.clone<T>(collection));
+        resolve(true);
+      });
     });
   }
 
@@ -104,6 +112,22 @@ export class StorageTable<T> {
   }
 
   /**
+   * load all collection by promise
+   * @returns {Promise.all}
+     */
+  loadAll():Promise<any> {
+    let promiseList = [];
+    this.collectionList=[];
+    for (let i = 0; i < this.storageIndexTable.getMaxSize(); i++) {
+      promiseList.push(this.loadCollectionByIndexPos(i));
+    }
+    return Promise.all(promiseList).then(()=>{
+      this.nextLoadingPos=this.storageIndexTable.getMaxSize();
+      console.log("this.nextLoadingPos="+this.nextLoadingPos);
+    });
+  }
+
+  /**
    * create a new Index in index table for date
    * @param date
    */
@@ -112,21 +136,13 @@ export class StorageTable<T> {
       if (!this.storageIndexTable.include(date)) {
 
         let insertPos = this.storageIndexTable.insert(date);
-        console.log("insertPos="+insertPos);
+        console.log("insertPos=" + insertPos);
         console.log(this);
 
         let indexItem = this.storageIndexTable.getIndexItem(insertPos);
         let storageCollection = new StorageCollection<T>(indexItem);
         if (insertPos < this.nextLoadingPos) {
-          console.log("enter insertPos < this.nextLoadingPos");
-          console.log("befor inesert");
-
-          console.log(this.collectionList);
-
-          //this.collectionList=this.collectionList.splice(insertPos, 0, storageCollection);
           this.collectionList.splice(insertPos, 0, storageCollection);
-          console.log("after inesert");
-
           console.log(this.collectionList);
 
           this.nextLoadingPos++;

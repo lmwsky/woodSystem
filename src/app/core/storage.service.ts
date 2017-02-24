@@ -5,6 +5,7 @@ import {Injectable} from "@angular/core";
 import {Storage} from "@ionic/storage";
 import {StorageTable} from "./storage-table";
 import {StorageIndexTable} from "./storage-index";
+import {IdObject} from "./storage-collection";
 
 @Injectable()
 export class StorageService {
@@ -28,16 +29,16 @@ export class StorageService {
   get(key:string):Promise<any> {
     return this.storage.get(key);
   }
-  
+
   /**
    * create storage table for the T type
    * @param tableName,the table name for this storageTable
    */
-  private createStorageTable<T>(tableName:string):StorageTable<T> {
+  private createStorageTable<T extends IdObject>(tableName:string):StorageTable<T> {
     return new StorageTable<T>(tableName, this);
   }
 
-  initStorageTable<T>(tableName:string):Promise<StorageTable<T>> {
+  initStorageTable<T extends IdObject>(tableName:string):Promise<StorageTable<T>> {
     return new Promise<StorageTable<T>>((resolve, reject)=> {
       let storageTable = this.createStorageTable<T>(tableName);
       let onfulfilled = (storageIndexTable:StorageIndexTable)=> {
