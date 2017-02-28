@@ -49,4 +49,8 @@ export class StorageService {
       storageTable.initIndexTable().then(onfulfilled);
     });
   }
+
+  clearDB() :Promise<null>{
+    return this.storage.clear();
+  }
 }
