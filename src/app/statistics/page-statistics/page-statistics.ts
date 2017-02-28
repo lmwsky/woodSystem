@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import {StorageService} from "../../core/storage.service";
 
 /*
   Generated class for the PageStatistics page.
@@ -8,15 +9,16 @@ import { NavController, NavParams } from 'ionic-angular';
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-page-statistics',
+  selector: 'page-statistics',
   templateUrl: 'page-statistics.html'
 })
 export class StatisticsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad StatisticsPage');
+  constructor(public navCtrl: NavController, public navParams: NavParams,private storageService:StorageService) {}
+  
+  clearDB(){
+    this.storageService.clearDB().then(()=>{
+      console.log("clearDB");
+    });
   }
-
 }
