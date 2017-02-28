@@ -5,10 +5,10 @@ import {SellRecord} from "../shared/sell-record/sell-record.model";
  */
 export class StorageFactory {
   static createBuyRecord():BuyRecord {
-    return new BuyRecord(0, 0, 0, 0, 0, 0, 0, new Date().toLocaleDateString());
+      return new BuyRecord(0, 0, 0, 0, 0, 0, 0, new Date().toISOString());
   }
 
   static createSellRecord():SellRecord {
-    return new SellRecord(0, 0, 0, 0, 0, 0, 0, new Date().toLocaleDateString(), "老板");
+    return new SellRecord(0, 0, 0, 0, 0, 0, 0, new Date().toISOString(), "老板");
   }
 }
