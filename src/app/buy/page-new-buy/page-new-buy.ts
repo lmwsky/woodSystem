@@ -48,15 +48,21 @@ export class NewBuyPage implements OnInit {
   }
 
   onSubmit(newBuyRecord) {
-    this.presentLoadingDefault("添加中");
-    this.buyRecordService.buy(newBuyRecord).then(()=> {
-      this.buyRecordService.initStorageTableCache().then(()=> {
-        this.loading.dismissAll();
-        this.loading = undefined;
-        this.presentToast("添加成功");
-        this.navCtrl.popTo(BuyRecordPage);
+    if(newBuyRecord){
+      console.log(newBuyRecord);
+      this.presentLoadingDefault("添加中");
+      this.buyRecordService.buy(newBuyRecord).then(()=> {
+        this.buyRecordService.initStorageTableCache().then(()=> {
+          this.loading.dismissAll();
+          this.loading = undefined;
+          this.presentToast("添加成功");
+          this.navCtrl.popTo(BuyRecordPage);
+        });
       });
-    });
+    }else {
+      console.log("newBuyRecord undefined");
+    }
+
   }
-  
+
 }

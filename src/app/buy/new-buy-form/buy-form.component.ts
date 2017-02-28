@@ -3,6 +3,7 @@ import {Specification} from "../../shared/specification/specification.model";
 import {BuyRecord} from "../../shared/buy-record/buy-record.model";
 import {StorageFactory} from "../../core/storage-factory";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
+import {biggerThanZero} from "../../shared/validators/validators";
 
 /*
  Generated class for the PageNewBuy page.
@@ -38,11 +39,14 @@ export class BuyFormComponent implements OnInit {
       this.buyRecord.setSpecification(selectedSpecification);
     }
   }
+
   buildForm():void {
     this.buyForm = this.fb.group({
-      'time': [this.buyRecord.timeStr, [Validators.required]],
+      'timeStr': [this.buyRecord.timeStr, [Validators.required]],
       'specification': [this.buyRecord.specification, [Validators.required]],
-      'num': [this.buyRecord.num, [Validators.required]],
+      'num': [this.buyRecord.num,
+        [Validators.required,
+          biggerThanZero()]],
       'singlePrice': [this.buyRecord.singlePrice, [Validators.required]],
       'actualSumPrice': [this.buyRecord.actualSumPrice, [Validators.required]]
 
@@ -53,11 +57,10 @@ export class BuyFormComponent implements OnInit {
   }
 
   onValueChanged(data?:any) {
-    console.log("form value change:");
-    console.log(data);
     if (!this.buyForm) {
       return;
     }
+    let isError = false;
     const form = this.buyForm;
     for (const field in this.formErrors) {
       // clear previous error message (if any)
@@ -65,26 +68,26 @@ export class BuyFormComponent implements OnInit {
       const control = form.get(field);
       if (control && control.dirty && !control.valid) {
         const messages = this.validationMessages[field];
+        isError = true;
         for (const key in control.errors) {
           this.formErrors[field] += messages[key] + ' ';
         }
       }
     }
-    console.log("form value=");
-    console.log(this.buyForm.value);
-
-    //this.computeOtherValues();
+    if (!isError){
+      this.buyRecord.updateValue(form.value);
+    }
   }
 
   formErrors = {
-    'time': '',
+    'timeStr': '',
     'specification': '',
     'num': '',
     'singlePrice': '',
     'actualSumPrice': ''
   };
   validationMessages = {
-    'time': {
+    'timeStr': {
       'required': '必须选择时间',
     },
     'specification': {
@@ -92,6 +95,7 @@ export class BuyFormComponent implements OnInit {
     },
     'num': {
       'required': '必须填写条数',
+      'biggerThanZero': '条数必须大于0'
     },
     'singlePrice': {
       'required': '必须填写单价'
@@ -100,44 +104,12 @@ export class BuyFormComponent implements OnInit {
       'required': '必须填写总价'
     }
   };
-/*
-  computeOtherValues(){
-    this.buyRecord.computeSumPrice = this.buyRecord.num * this.buyRecord.singlePrice;
-    this.buyRecord.sumVolume = this.buyRecord.num * this.buyRecord.specification.volume;
-  }
+
+
 
   onSubmit() {
-   
-    if (this.buyRecord.specification)
-      this.submitEvent.emit(this.buyRecord);
-
+    this.submitEvent.emit(this.buyRecord);
   }
 
 
-  onChangeSpecification(specification:Specification) {
-    this.buyRecord.setSpecification(specification);
-    this.computeSumVolume();
-  }
-
-  onChangeDate(dateStr:string) {
-    if (dateStr) {
-      this.dateStr = dateStr;
-      this.buyRecord.timeStr = dateStr;
-      this.buyRecord.time = new Date(dateStr);
-    }
-  }
-
-  onChangeSinglePrice(singlePrice:string) {
-    this.buyRecord.singlePrice = Number.parseFloat(singlePrice);
-    this.computeSumPrice();
-    this.resetActualSumPrice();
-  }
-
-  onChangeNum(num:string) {
-    this.buyRecord.num = Number.parseFloat(num);
-    this.computeSumVolume();
-    this.computeSumPrice();
-    this.resetActualSumPrice()
-  }
-*/
 }
