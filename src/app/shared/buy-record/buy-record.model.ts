@@ -22,4 +22,23 @@ export class BuyRecord {
     this.specification = specification;
     this.specificationId = specification.id;
   }
+
+  setTimeStr(timeStr:string) {
+    this.timeStr = timeStr;
+    this.time = new Date(timeStr);
+  }
+
+  computeOtherValues() {
+    this.computeSumPrice = this.num * this.singlePrice;
+    this.sumVolume = this.num * this.specification.volume;
+  }
+
+  updateValue(value) {
+    this.setTimeStr(value.timeStr);
+    this.setSpecification(value.specification);
+    this.num = Number.parseFloat(value.num + "");
+    this.singlePrice = Number.parseFloat(value.singlePrice + "");
+    this.actualSumPrice = Number.parseFloat(value.actualSumPrice + "");
+    this.computeOtherValues();
+  }
 }
