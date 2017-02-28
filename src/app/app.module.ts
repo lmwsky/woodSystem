@@ -5,7 +5,7 @@ import {BuyModule} from "./buy/buy.module";
 import {SellModule} from "./sell/sell.module";
 import {StockModule} from "./stock/stock.module";
 import {SettingModule} from "./setting/setting.module";
-import {StatisticsModule} from "./statistics/satistics.module";
+import {StatisticsModule} from "./statistics/statistics.module";
 import {TabsPageModule} from "./tab/tab.module";
 import {SharedModule} from "./shared/shared.module";
 import {CoreModule} from "./core/core.module";
