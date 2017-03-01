@@ -2,7 +2,8 @@
  * Created by isky on 2017/2/28.
  */
 import {ValidatorFn, AbstractControl} from "@angular/forms";
-/** A hero's name can't match the given regular expression */
+import {StockService} from "../../core/stock.service";
+
 export function biggerThan(minValue:number):ValidatorFn {
   return (control:AbstractControl):{[key:string]:any} => {
     const value = control.value;

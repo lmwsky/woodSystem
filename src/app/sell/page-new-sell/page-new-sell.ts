@@ -48,16 +48,20 @@ export class NewSellPage {
   }
 
   onSubmit(newSellRecord) {
-    this.presentLoadingDefault("添加中");
-    this.sellRecordService.sell(newSellRecord).then(()=> {
-      this.sellRecordService.initStorageTableCache().then(()=> {
-        this.loading.dismissAll();
-        this.loading = undefined;
-        this.presentToast("添加成功");
-        this.navCtrl.popTo(SellRecordPage);
-        console.log(newSellRecord);
+    if (newSellRecord) {
+      this.presentLoadingDefault("添加中");
+      this.sellRecordService.sell(newSellRecord).then(()=> {
+        this.sellRecordService.initStorageTableCache().then(()=> {
+          this.loading.dismissAll();
+          this.loading = undefined;
+          this.presentToast("添加成功");
+          this.navCtrl.popTo(SellRecordPage);
+          console.log(newSellRecord);
+        });
       });
-    });
+    }else {
+      console.log("newSellRecord is undefined");
+    }
   }
   
 }

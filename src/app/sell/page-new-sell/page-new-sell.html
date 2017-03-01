@@ -13,7 +13,7 @@
 </ion-header>
 
 <ion-content padding>
-  <form-new-sell *ngIf="specificationList" [specifications]="specificationList"
-                (submitEvent)="onSubmit($event)"
-  ></form-new-sell>
+  <sell-form *ngIf="specificationList" [specifications]="specificationList"
+                 (submitEvent)="onSubmit($event)"
+  ></sell-form>
 </ion-content>

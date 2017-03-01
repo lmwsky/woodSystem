@@ -3,7 +3,7 @@
  */
 import {Injectable} from "@angular/core";
 import {SpecificationService} from "./specification.service";
-import {Storage} from '@ionic/storage';
+import {Storage} from "@ionic/storage";
 import {StockItem} from "../shared/stock-item/stock-item.model";
 import {BuyRecord} from "../shared/buy-record/buy-record.model";
 import {SellRecord} from "../shared/sell-record/sell-record.model";
@@ -42,7 +42,12 @@ export class StockService {
   }
 
   getStockItemBySpecification(specificationId:number):Promise<StockItem> {
+
     return new Promise((resolve, reject) => {
+      if (specificationId == undefined) {
+        reject();
+        return;
+      }
       this.getStockItemList().then((stockItemList)=> {
         let selectStockItem = undefined;
         for (let stockItem of stockItemList) {
@@ -66,7 +71,12 @@ export class StockService {
   createNewStockItem(stockItem:StockItem):Promise<StockItem> {
     return new Promise((resolve, reject) => {
       this.getStockItemList().then((stockItemList)=> {
-        stockItem.id = this.stockItemList.length + 1;
+        stockItem.id = stockItemList.length + 1;
+
+        console.log("createNewStockItem");
+        console.log(stockItem);
+
+
         stockItem.setSpecification(
           this.specificationService.getSpecificationById(stockItem.specificationId));
         this.stockItemList.push(stockItem);

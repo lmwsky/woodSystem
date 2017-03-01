@@ -10,6 +10,7 @@ import {SellRecordPage} from "./page-sell-record/page-sell-record";
 import {NewSellFormComponent} from "./new-sell-form/new-sell-form.component";
 import {SellRecordListComponent} from "./sell-record-list/sell-record-list.component";
 import {DateSellRecordListComponent} from "./date-sell-record-list/date-sell-record-list.component";
+import {SellFormComponent} from "./new-sell-form/sell-form.component";
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import {DateSellRecordListComponent} from "./date-sell-record-list/date-sell-rec
     SellRecordPage,
     NewSellFormComponent,
     SellRecordListComponent,
-    DateSellRecordListComponent
+    DateSellRecordListComponent,
+    SellFormComponent
   ],
 
   exports: [
