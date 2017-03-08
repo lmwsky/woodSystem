@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {NavController, ToastController, Loading, LoadingController} from "ionic-angular";
+import {NavController, ToastController, Loading, LoadingController, AlertController} from "ionic-angular";
 import {Specification} from "../../shared/specification/specification.model";
 import {SpecificationService} from "../../core/specification.service";
 import {SellRecordService} from "../../core/sell-record.service";
@@ -29,9 +29,32 @@ export class NewSellPage {
               public specificationService:SpecificationService,
               public sellRecordService:SellRecordService,
               public toastCtrl:ToastController,
-              public loadingCtrl:LoadingController) {
+              public loadingCtrl:LoadingController,
+              private alertCtrl:AlertController) {
   }
-
+  presentConfirm() {
+    let alert = this.alertCtrl.create({
+      title: '继续添加出货确认',
+      message: '添加成功,你想要继续添加出货吗',
+      buttons: [
+        {
+          text: '继续',
+          handler: () => {
+            console.log('继续添加');
+          }
+        },
+        {
+          text: '结束',
+          role: 'cancel',
+          handler: () => {
+            this.presentToast("出货结束");
+            this.navCtrl.popTo(SellRecordPage);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
   presentToast(text:string) {
     let toast = this.toastCtrl.create({
       message: text,
@@ -54,9 +77,7 @@ export class NewSellPage {
         this.sellRecordService.initStorageTableCache().then(()=> {
           this.loading.dismissAll();
           this.loading = undefined;
-          this.presentToast("添加成功");
-          this.navCtrl.popTo(SellRecordPage);
-          console.log(newSellRecord);
+          this.presentConfirm();
         });
       });
     }else {

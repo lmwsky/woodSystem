@@ -28,16 +28,30 @@ export class BuyFormComponent implements OnInit {
   }
 
   ngOnInit():void {
-    this.initData();
-    this.buildForm();
+    this.init();
   }
 
-  initData() {
+  /**
+   * init the data and form, some values are used the given default data
+   * @param lastBuyRecord the default value template,ect,the time is the same as the lastBuyRecord
+     */
+  init(lastBuyRecord:BuyRecord=undefined){
+    this.initData(lastBuyRecord);
+    this.buildForm();
+  }
+  initData(lastBuyRecord:BuyRecord=undefined) {
     this.buyRecord = StorageFactory.createBuyRecord();
     if (this.specifications) {
       let selectedSpecification = this.specifications[0];
       this.buyRecord.setSpecification(selectedSpecification);
     }
+    if(lastBuyRecord){
+      this.buyRecord.setTimeStr(lastBuyRecord.timeStr);
+    }
+    console.log("last");
+    console.log(lastBuyRecord);
+    console.log("new");
+    console.log(this.buyRecord);
   }
 
   buildForm():void {
@@ -105,10 +119,9 @@ export class BuyFormComponent implements OnInit {
     }
   };
 
-
-
   onSubmit() {
     this.submitEvent.emit(this.buyRecord);
+    this.init(this.buyRecord);
   }
 
 

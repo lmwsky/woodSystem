@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {NavController, ToastController, LoadingController, Loading} from "ionic-angular";
+import {NavController, ToastController, LoadingController, Loading, AlertController} from "ionic-angular";
 import {SpecificationService} from "../../core/specification.service";
 import {Specification} from "../../shared/specification/specification.model";
 import {BuyRecordService} from "../../core/buy-record.service";
@@ -29,7 +29,8 @@ export class NewBuyPage implements OnInit {
               public specificationService:SpecificationService,
               public buyRecordService:BuyRecordService,
               public toastCtrl:ToastController,
-              public loadingCtrl:LoadingController) {
+              public loadingCtrl:LoadingController,
+              private alertCtrl:AlertController) {
   }
 
   presentToast(text:string) {
@@ -47,19 +48,42 @@ export class NewBuyPage implements OnInit {
     this.loading.present();
   }
 
+  presentConfirm() {
+    let alert = this.alertCtrl.create({
+      title: '继续添加进货确认',
+      message: '添加成功,你想要继续添加进货吗',
+      buttons: [
+        {
+          text: '继续',
+          handler: () => {
+            console.log('继续添加');
+          }
+        },
+        {
+          text: '结束',
+          role: 'cancel',
+          handler: () => {
+            this.presentToast("进货结束");
+            this.navCtrl.popTo(BuyRecordPage);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
   onSubmit(newBuyRecord) {
-    if(newBuyRecord){
+    if (newBuyRecord) {
       console.log(newBuyRecord);
       this.presentLoadingDefault("添加中");
       this.buyRecordService.buy(newBuyRecord).then(()=> {
         this.buyRecordService.initStorageTableCache().then(()=> {
           this.loading.dismissAll();
           this.loading = undefined;
-          this.presentToast("添加成功");
-          this.navCtrl.popTo(BuyRecordPage);
+          this.presentConfirm();
         });
       });
-    }else {
+    } else {
       console.log("newBuyRecord undefined");
     }
 

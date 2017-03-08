@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, EventEmitter, Output} from "@angular/core";
 import {Specification} from "../../shared/specification/specification.model";
 import {StorageFactory} from "../../core/storage-factory";
-import {FormGroup, FormBuilder, Validators, AbstractControl} from "@angular/forms";
+import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {biggerThanZero} from "../../shared/validators/validators";
 import {SellRecord} from "../../shared/sell-record/sell-record.model";
 import {StockService} from "../../core/stock.service";
@@ -30,15 +30,24 @@ export class SellFormComponent implements OnInit {
   }
 
   ngOnInit():void {
-    this.initData();
-    this.buildForm();
+    this.init();
   }
 
-  initData() {
+  init(defaultSellRecord:SellRecord = undefined) {
+    this.initData(defaultSellRecord);
+    this.buildForm();
+    this.updateStockItem(this.sellRecord.specification);
+  }
+
+  initData(defaultSellRecord:SellRecord = undefined) {
     this.sellRecord = StorageFactory.createSellRecord();
     if (this.specifications) {
-     let selectSpecification = this.specifications[0];
+      let selectSpecification = this.specifications[0];
       this.sellRecord.setSpecification(selectSpecification);
+    }
+    if (defaultSellRecord) {
+      this.sellRecord.setTimeStr(defaultSellRecord.timeStr);
+      this.sellRecord.buyer = defaultSellRecord.buyer;
     }
   }
 
@@ -120,6 +129,7 @@ export class SellFormComponent implements OnInit {
     this.updateStockItem(this.sellRecord.specification).then(()=> {
       if (this.sellRecord.num <= this.stockItemNum) {
         this.submitEvent.emit(this.sellRecord);
+        this.init(this.sellRecord);
       } else {
         this.formErrors['num'] = this.validationMessages['num']['lack'];
       }
