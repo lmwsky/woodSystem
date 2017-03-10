@@ -27,6 +27,7 @@ export class SellRecord {
   computeOtherValues() {
     this.computeSumPrice = this.num * this.singlePrice;
     this.sumVolume = this.num * this.specification.volume;
+    this.actualSumPrice = this.computeSumPrice;
   }
 
   setTimeStr(timeStr:string) {

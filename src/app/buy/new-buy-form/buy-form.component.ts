@@ -34,18 +34,19 @@ export class BuyFormComponent implements OnInit {
   /**
    * init the data and form, some values are used the given default data
    * @param lastBuyRecord the default value template,ect,the time is the same as the lastBuyRecord
-     */
-  init(lastBuyRecord:BuyRecord=undefined){
+   */
+  init(lastBuyRecord:BuyRecord = undefined) {
     this.initData(lastBuyRecord);
     this.buildForm();
   }
-  initData(lastBuyRecord:BuyRecord=undefined) {
+
+  initData(lastBuyRecord:BuyRecord = undefined) {
     this.buyRecord = StorageFactory.createBuyRecord();
     if (this.specifications) {
       let selectedSpecification = this.specifications[0];
       this.buyRecord.setSpecification(selectedSpecification);
     }
-    if(lastBuyRecord){
+    if (lastBuyRecord) {
       this.buyRecord.setTimeStr(lastBuyRecord.timeStr);
     }
     console.log("last");
@@ -88,8 +89,9 @@ export class BuyFormComponent implements OnInit {
         }
       }
     }
-    if (!isError){
+    if (!isError) {
       this.buyRecord.updateValue(form.value);
+      form.value.actualSumPrice = this.buyRecord.actualSumPrice;
     }
   }
 

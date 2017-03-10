@@ -31,6 +31,7 @@ export class BuyRecord {
   computeOtherValues() {
     this.computeSumPrice = this.num * this.singlePrice;
     this.sumVolume = this.num * this.specification.volume;
+    this.actualSumPrice = this.computeSumPrice;
   }
 
   updateValue(value) {

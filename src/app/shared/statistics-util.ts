@@ -6,7 +6,7 @@ import {SellRecord} from "./sell-record/sell-record.model";
  */
 export class StatisticsUtil {
   static countSpecificationNum(collection:StorageCollection<BuyRecord|SellRecord>):number {
-    
+
     let specificationList = []
     let specificationNum = 0;
     for (let item of collection.data) {
@@ -23,7 +23,7 @@ export class StatisticsUtil {
       }
     }
     return specificationNum;
-    
+
   }
 
   static countSumVolume(collection:StorageCollection<BuyRecord|SellRecord>):number {
@@ -38,7 +38,7 @@ export class StatisticsUtil {
 
     let sumPrice = 0;
     for (let item of collection.data) {
-      sumPrice += item.actualSumPrice;
+      sumPrice += item.computeSumPrice;
     }
     return sumPrice;
   }

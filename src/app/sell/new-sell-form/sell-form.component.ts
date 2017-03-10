@@ -89,6 +89,7 @@ export class SellFormComponent implements OnInit {
     }
     if (!isError) {
       this.sellRecord.updateValue(form.value);
+      form.value.actualSumPrice = this.sellRecord.actualSumPrice;
     }
   }
 
