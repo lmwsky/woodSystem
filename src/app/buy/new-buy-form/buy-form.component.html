@@ -41,14 +41,6 @@
         {{ formErrors.singlePrice }}
       </ion-note>
     </ion-item>
-    <ion-item>
-      <ion-label fixed>实际总价/元</ion-label>
-      <ion-input type="number" step="0.01"
-                 formControlName="actualSumPrice"></ion-input>
-      <ion-note item-right color="danger" *ngIf="formErrors.actualSumPrice">
-        {{ formErrors.actualSumPrice }}
-      </ion-note>
-    </ion-item>
     <ion-item-divider color="danger">计算结果</ion-item-divider>
 
     <ion-item>

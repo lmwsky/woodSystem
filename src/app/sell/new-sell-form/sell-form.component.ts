@@ -58,7 +58,6 @@ export class SellFormComponent implements OnInit {
       'num': [this.sellRecord.num, [Validators.required, biggerThanZero()]],
       'singlePrice': [this.sellRecord.singlePrice, [Validators.required, biggerThanZero()]],
       'buyer': [this.sellRecord.buyer, [Validators.required]],
-      'actualSumPrice': [this.sellRecord.actualSumPrice, [Validators.required]]
     });
     this.sellForm.valueChanges
       .subscribe(data => this.onValueChanged(data));
@@ -89,7 +88,6 @@ export class SellFormComponent implements OnInit {
     }
     if (!isError) {
       this.sellRecord.updateValue(form.value);
-      form.value.actualSumPrice = this.sellRecord.actualSumPrice;
     }
   }
 
