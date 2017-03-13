@@ -11,6 +11,7 @@ import {StockService} from "./stock.service";
 import {SellRecordService} from "./sell-record.service";
 import {StorageService} from "./storage.service";
 import {UpdateAppService} from "./update-app.service";
+import {SettingService} from "./setting.service";
 
 @NgModule({
   imports: [
@@ -26,8 +27,8 @@ import {UpdateAppService} from "./update-app.service";
     {provide: Storage, useFactory: provideStorage },
     {provide: StockService, useClass: StockService},
     {provide: StorageService, useClass: StorageService},
-    {provide: UpdateAppService, useClass: UpdateAppService}
-
+    {provide: UpdateAppService, useClass: UpdateAppService},
+    {provide: SettingService, useClass: SettingService}
   ],
   //flowing is could be used in tabs container
   entryComponents: []

@@ -3,6 +3,7 @@ import {StockPage} from "../../../app/stock/stock/stock";
 import {BuyRecordPage} from "../../../app/buy/page-buy-record/page-buy-record";
 import {StatisticsPage} from "../../../app/statistics/page-statistics/page-statistics";
 import {SellRecordPage} from "../../../app/sell/page-sell-record/page-sell-record";
+import {SettingPage} from "../../setting/page-setting/page-setting";
 
 
 @Component({
@@ -15,6 +16,7 @@ export class TabsPage {
   tab2Root: any = BuyRecordPage;
   tab3Root: any = SellRecordPage;
   tab4Root: any = StatisticsPage;
+  tab5Root: any = SettingPage;
 
   constructor() {
 

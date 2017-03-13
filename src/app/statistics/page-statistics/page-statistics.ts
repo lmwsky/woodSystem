@@ -14,11 +14,7 @@ import {StorageService} from "../../core/storage.service";
 })
 export class StatisticsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private storageService:StorageService) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
   
-  clearDB(){
-    this.storageService.clearDB().then(()=>{
-      console.log("clearDB");
-    });
-  }
+
 }
