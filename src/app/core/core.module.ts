@@ -23,16 +23,19 @@ import {InitAppService} from "./init-app.service";
   exports: [],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    {provide: Storage, useFactory: provideStorage },
+    {provide: SettingService, useClass: SettingService},
     {provide: SpecificationService, useClass: SpecificationService},
+    {provide: StorageService, useClass: StorageService},
+    {provide: StorageKeyStore, useClass: StorageKeyStore},
+    {provide: StockService, useClass: StockService},
     {provide: BuyRecordService, useClass: BuyRecordService},
     {provide: SellRecordService, useClass: SellRecordService},
-    {provide: Storage, useFactory: provideStorage },
-    {provide: StockService, useClass: StockService},
-    {provide: StorageService, useClass: StorageService},
+
     {provide: UpdateAppService, useClass: UpdateAppService},
-    {provide: SettingService, useClass: SettingService},
-    {provide: StorageKeyStore, useClass: StorageKeyStore},
     {provide: InitAppService, useClass: InitAppService},
+
+
 
   ],
   //flowing is could be used in tabs container

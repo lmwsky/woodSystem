@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {StorageService} from "../../core/storage.service";
 
 /*
   Generated class for the PageStatistics page.
@@ -15,6 +14,6 @@ import {StorageService} from "../../core/storage.service";
 export class StatisticsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
-  
+
 
 }

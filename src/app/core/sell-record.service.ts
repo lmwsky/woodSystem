@@ -16,7 +16,9 @@ export class SellRecordService {
               public stockService:StockService,
               private keyStore:StorageKeyStore) {
   }
-
+  clearCache(){
+    this.storageTable=undefined;
+  }
   getStorageTable():Promise<StorageTable<SellRecord>> {
     return new Promise((resolve, reject) => {
       if (!this.storageTable) {

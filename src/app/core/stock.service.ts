@@ -10,9 +10,11 @@ import {SellRecord} from "../shared/sell-record/sell-record.model";
 import {StorageKeyStore} from "./storage-key-store";
 @Injectable()
 export class StockService {
-  stockItemList:StockItem[];
+  stockItemList:StockItem[]=[];
 
-  constructor(public specificationService:SpecificationService, public storage:Storage, private keyStore:StorageKeyStore) {
+  constructor(public specificationService:SpecificationService,
+              public storage:Storage,
+              private keyStore:StorageKeyStore) {
   }
 
   updateStockItemByBuyRecord(buyRecord:BuyRecord):Promise<StockItem> {
@@ -83,7 +85,9 @@ export class StockService {
         resolve(stockItem);
       });
   }
-
+  clearCache(){
+    this.stockItemList.splice(0,this.stockItemList.length);
+  }
   initFromDB():Promise<StockItem[]> {
     return new Promise((resolve, reject) => {
       let keyForStockItems = this.keyStore.getKeyForStockItems();
@@ -91,9 +95,7 @@ export class StockService {
         console.log("-----init stock item from db for key " + keyForStockItems);
         console.log(vals);
         console.log("------");
-
-        this.stockItemList = [];
-
+        this.clearCache();
         if (vals) {
           for (let val of vals) {
             let stockItem = new StockItem(val.id, val.specificationId, val.num);

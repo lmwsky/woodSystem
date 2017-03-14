@@ -2,10 +2,6 @@ import {Component} from "@angular/core";
 import {Platform} from "ionic-angular";
 import {StatusBar, Splashscreen} from "ionic-native";
 import {TabsPage} from "./tab/tabs/tabs";
-import {UpdateAppService} from "./core/update-app.service";
-import {SettingService} from "./core/setting.service";
-import {SpecificationService} from "./core/specification.service";
-import {StockService} from "./core/stock.service";
 import {InitAppService} from "./core/init-app.service";
 
 

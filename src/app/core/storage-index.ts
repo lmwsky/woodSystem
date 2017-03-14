@@ -69,14 +69,7 @@ export class StorageIndexTable {
     }
     return undefined;
   }
-
-  /**
-   * sort by date descending
-   */
-  private sort() {
-
-  }
-
+  
   include(date:Date):boolean {
     return !!this.getIndexItemKeyByDate(date);
   }

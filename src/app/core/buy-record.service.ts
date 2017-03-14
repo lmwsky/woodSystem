@@ -16,13 +16,19 @@ export class BuyRecordService {
               public stockService:StockService,
               private keyStore:StorageKeyStore) {
   }
-  initStorageTableCache():Promise<boolean>{
-    if(this.storageTable){
+
+  clearCache():void {
+    this.storageTable = undefined;
+  }
+
+  initStorageTableCache():Promise<boolean> {
+    if (this.storageTable) {
       return this.storageTable.loadOneMore();
-    }else {
+    } else {
       return Promise.resolve(false);
     }
   }
+
   getStorageTable():Promise<StorageTable<BuyRecord>> {
     return new Promise((resolve, reject) => {
       if (!this.storageTable) {

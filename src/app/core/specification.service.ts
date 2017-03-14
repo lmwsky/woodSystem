@@ -13,7 +13,7 @@ export class SpecificationService {
   }
 
   initSpecificationList():Promise<any> {
-    this.specificationList = [];
+    this.specificationList.splice(0, this.specificationList.length);
     let jsonArray:{id:number; name:string; volume:number}[];
 
     console.log("this.settingService.isSpecificationTypeEqualToSquare()= " + this.settingService.isSpecificationTypeEqualToSquare());
