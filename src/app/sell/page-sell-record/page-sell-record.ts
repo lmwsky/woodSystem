@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
-import {NavController, Loading, LoadingController} from 'ionic-angular';
+import {Component} from "@angular/core";
+import {NavController, Loading, LoadingController} from "ionic-angular";
 import {NewSellPage} from "../page-new-sell/page-new-sell";
 import {SellRecord} from "../../shared/sell-record/sell-record.model";
 import {SellRecordService} from "../../core/sell-record.service";
 import {StorageTable} from "../../core/storage-table";
 /*
-  Generated class for the PageSellRecord page.
+ Generated class for the PageSellRecord page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
+ See http://ionicframework.com/docs/v2/components/#navigation for more info on
+ Ionic pages and navigation.
+ */
 @Component({
   selector: 'page-sell-record',
   templateUrl: 'page-sell-record.html'
@@ -20,10 +20,11 @@ export class SellRecordPage {
 
   private loading:Loading;
 
-  constructor(public navCtrl: NavController,
+  constructor(public navCtrl:NavController,
               public sellRecordService:SellRecordService,
               public loadingCtrl:LoadingController) {
   }
+
   presentLoadingDefault(hint:string) {
     this.loading = this.loadingCtrl.create({
       content: hint
@@ -31,7 +32,7 @@ export class SellRecordPage {
     this.loading.present();
   }
 
-  ngOnInit():void {
+  ionViewWillEnter() {
     this.presentLoadingDefault("加载数据中");
     this.sellRecordService.getStorageTable().then((sellRecordStorageTable)=> {
 
@@ -40,6 +41,7 @@ export class SellRecordPage {
       this.loading = undefined;
     });
   }
+
   createNewSell() {
     this.navCtrl.push(NewSellPage, {});
   }

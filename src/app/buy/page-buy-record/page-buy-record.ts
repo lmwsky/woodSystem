@@ -16,7 +16,7 @@ import {StorageTable} from "../../core/storage-table";
   selector: 'page-buy-record',
   templateUrl: 'page-buy-record.html'
 })
-export class BuyRecordPage implements OnInit {
+export class BuyRecordPage {
 
   buyRecordStorageTable:StorageTable<BuyRecord>;
 
@@ -27,21 +27,21 @@ export class BuyRecordPage implements OnInit {
               public loadingCtrl:LoadingController) {
   }
 
+  ionViewWillEnter() {
+    this.presentLoadingDefault("加载数据中");
+    this.buyRecordService.getStorageTable().then((buyRecordStorageTable)=> {
+
+      this.buyRecordStorageTable = buyRecordStorageTable;
+      this.loading.dismissAll();
+      this.loading = undefined;
+    });
+  }
+
   presentLoadingDefault(hint:string) {
     this.loading = this.loadingCtrl.create({
       content: hint
     });
     this.loading.present();
-  }
-
-  ngOnInit():void {
-    this.presentLoadingDefault("加载数据中");
-    this.buyRecordService.getStorageTable().then((buyRecordStorageTable)=> {
-      
-      this.buyRecordStorageTable = buyRecordStorageTable;
-      this.loading.dismissAll();
-      this.loading = undefined;
-    });
   }
 
   createNewBuy() {
