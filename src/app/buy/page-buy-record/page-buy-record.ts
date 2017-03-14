@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {NavController, LoadingController, Loading} from "ionic-angular";
 import {BuyRecord} from "../../shared/buy-record/buy-record.model";
 import {BuyRecordService} from "../../core/buy-record.service";
