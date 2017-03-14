@@ -7,13 +7,14 @@ import {StockService} from "./stock.service";
 import {StorageTable} from "./storage-table";
 import {StorageService} from "./storage.service";
 import {StorageCollection} from "./storage-collection";
+import {StorageKeyStore} from "./storage-key-store";
 @Injectable()
 export class BuyRecordService {
-  static TABLE_NAME = "BuyRecordsTable";
   storageTable:StorageTable<BuyRecord>;
 
   constructor(public storageService:StorageService,
-              public stockService:StockService) {
+              public stockService:StockService,
+              private keyStore:StorageKeyStore) {
   }
   initStorageTableCache():Promise<boolean>{
     if(this.storageTable){
@@ -25,7 +26,7 @@ export class BuyRecordService {
   getStorageTable():Promise<StorageTable<BuyRecord>> {
     return new Promise((resolve, reject) => {
       if (!this.storageTable) {
-        this.storageService.initStorageTable<BuyRecord>(BuyRecordService.TABLE_NAME).then((storageTable)=> {
+        this.storageService.initStorageTable<BuyRecord>(this.keyStore.getKeyForBuyRecord()).then((storageTable)=> {
           this.storageTable = storageTable;
           console.log(this.storageTable);
           resolve(this.storageTable);

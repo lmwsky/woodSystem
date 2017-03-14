@@ -13,9 +13,6 @@ export class StorageCollection<T extends IdObject> {
   }
 
   push(t:T) {
-    console.log("push");
-    console.log(this);
-    console.log(t);
     t.id = this.maxId;
     this.maxId++;
     this.data.push(t);

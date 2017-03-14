@@ -7,19 +7,20 @@ import {SellRecord} from "../shared/sell-record/sell-record.model";
 import {StorageService} from "./storage.service";
 import {StorageTable} from "./storage-table";
 import {StorageCollection} from "./storage-collection";
+import {StorageKeyStore} from "./storage-key-store";
 @Injectable()
 export class SellRecordService {
-  static TABLE_NAME = "SellRecordListTable";
   storageTable:StorageTable<SellRecord>;
 
   constructor(public storageService:StorageService,
-              public stockService:StockService) {
+              public stockService:StockService,
+              private keyStore:StorageKeyStore) {
   }
 
   getStorageTable():Promise<StorageTable<SellRecord>> {
     return new Promise((resolve, reject) => {
       if (!this.storageTable) {
-        this.storageService.initStorageTable<SellRecord>(SellRecordService.TABLE_NAME).then((storageTable)=> {
+        this.storageService.initStorageTable<SellRecord>(this.keyStore.getKeyForSellRecord()).then((storageTable)=> {
           this.storageTable = storageTable;
           console.log(this.storageTable);
           resolve(this.storageTable);

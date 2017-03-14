@@ -17,9 +17,7 @@ import {BuyRecordPage} from "../page-buy-record/page-buy-record";
 })
 export class NewBuyPage implements OnInit {
   ngOnInit():void {
-    this.specificationService.getSpecifications().then(
-      specificationList => this.specificationList = specificationList);
-
+    this.specificationList =this.specificationService.getSpecifications();
   }
 
   specificationList:Specification[];

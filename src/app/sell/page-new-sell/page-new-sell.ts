@@ -19,8 +19,7 @@ export class NewSellPage {
   private loading:Loading;
 
   ngOnInit():void {
-    this.specificationService.getSpecifications().then(
-      specificationList => this.specificationList = specificationList);
+    this.specificationList = this.specificationService.getSpecifications();
   }
 
   specificationList:Specification[];
@@ -84,5 +83,5 @@ export class NewSellPage {
       console.log("newSellRecord is undefined");
     }
   }
-  
+
 }

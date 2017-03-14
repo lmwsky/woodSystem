@@ -1,7 +1,8 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {NavController, NavParams, LoadingController, Loading} from "ionic-angular";
 import {StockService} from "../../core/stock.service";
 import {StockItem} from "../../shared/stock-item/stock-item.model";
+import {InitAppService} from "../../core/init-app.service";
 
 /*
  Generated class for the Stock page.
@@ -13,7 +14,7 @@ import {StockItem} from "../../shared/stock-item/stock-item.model";
   selector: 'page-stock',
   templateUrl: 'stock.html'
 })
-export class StockPage {
+export class StockPage implements OnInit{
 
   stockItemList:StockItem[];
   private loading:Loading;
@@ -21,17 +22,26 @@ export class StockPage {
   constructor(public navCtrl:NavController,
               public navParams:NavParams,
               public stockService:StockService,
+              private initAppService:InitAppService,
               public loadingCtrl:LoadingController) {
   }
 
   ngOnInit():void {
     this.presentLoadingDefault("加载数据中");
-
-    this.stockService.getStockItemList().then((stockItemList)=> {
-      this.stockItemList = stockItemList;
+    this.initAppService.initApp().then(()=>{
+      this.stockItemList = this.stockService.getStockItemList();
+      if(!this.stockItemList){
+        console.log("Error!!!!!");
+      }
+      else{
+        console.log("-----this.stockItemList in page ");
+        console.log(this.stockItemList);
+        console.log("------");
+      }
       this.loading.dismissAll();
       this.loading = undefined;
     });
+
   }
 
   presentLoadingDefault(hint:string) {

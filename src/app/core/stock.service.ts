@@ -7,12 +7,12 @@ import {Storage} from "@ionic/storage";
 import {StockItem} from "../shared/stock-item/stock-item.model";
 import {BuyRecord} from "../shared/buy-record/buy-record.model";
 import {SellRecord} from "../shared/sell-record/sell-record.model";
+import {StorageKeyStore} from "./storage-key-store";
 @Injectable()
 export class StockService {
   stockItemList:StockItem[];
-  static DATA_KEY = "stockTable";
 
-  constructor(public specificationService:SpecificationService, public storage:Storage) {
+  constructor(public specificationService:SpecificationService, public storage:Storage, private keyStore:StorageKeyStore) {
   }
 
   updateStockItemByBuyRecord(buyRecord:BuyRecord):Promise<StockItem> {
@@ -38,17 +38,16 @@ export class StockService {
   }
 
   saveToDB(stockItem:StockItem) {
-    this.storage.set(StockService.DATA_KEY, this.stockItemList);
+    this.storage.set(this.keyStore.getKeyForStockItems(), this.stockItemList);
   }
 
   getStockItemBySpecification(specificationId:number):Promise<StockItem> {
-
     return new Promise((resolve, reject) => {
       if (specificationId == undefined) {
         reject();
         return;
       }
-      this.getStockItemList().then((stockItemList)=> {
+      let stockItemList=this.getStockItemList();
         let selectStockItem = undefined;
         for (let stockItem of stockItemList) {
           if (stockItem.specificationId == specificationId) {
@@ -65,18 +64,17 @@ export class StockService {
           resolve(selectStockItem);
         }
       });
-    });
+
   }
 
   createNewStockItem(stockItem:StockItem):Promise<StockItem> {
     return new Promise((resolve, reject) => {
-      this.getStockItemList().then((stockItemList)=> {
+      let stockItemList=this.getStockItemList();
         stockItem.id = stockItemList.length + 1;
 
         console.log("createNewStockItem");
         console.log(stockItem);
-
-
+      
         stockItem.setSpecification(
           this.specificationService.getSpecificationById(stockItem.specificationId));
         this.stockItemList.push(stockItem);
@@ -84,12 +82,16 @@ export class StockService {
         this.saveToDB(stockItem);
         resolve(stockItem);
       });
-    });
   }
 
   initFromDB():Promise<StockItem[]> {
-    return new Promise((resolve, reject) => { // (A)
-      this.storage.get(StockService.DATA_KEY).then((vals) => {
+    return new Promise((resolve, reject) => {
+      let keyForStockItems = this.keyStore.getKeyForStockItems();
+      this.storage.get(keyForStockItems).then((vals) => {
+        console.log("-----init stock item from db for key " + keyForStockItems);
+        console.log(vals);
+        console.log("------");
+
         this.stockItemList = [];
 
         if (vals) {
@@ -99,16 +101,15 @@ export class StockService {
             this.stockItemList.push(stockItem);
           }
         }
+        console.log("-----this.stockItemList ");
+        console.log(this.stockItemList);
+        console.log("------");
         resolve(this.stockItemList);
       });
     });
   }
 
-  getStockItemList():Promise <StockItem[]> {
-    if (this.stockItemList) {
-      return Promise.resolve(this.stockItemList);
-    } else {
-      return this.initFromDB();
-    }
+  getStockItemList():StockItem[]{
+      return this.stockItemList;
   }
 }

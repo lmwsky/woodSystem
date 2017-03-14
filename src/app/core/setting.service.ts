@@ -14,13 +14,15 @@ export class SettingService {
   }
 
   initSetting():Promise<any> {
-    return this.storageService.get(SettingService.KEY_SETTING).then((setting)=> {
-      if (setting) {
-        this.setting = setting;
-      } else {
-        this.setting = new Setting();
-      }
-      return Promise.resolve();
+    return new Promise((resolve, reject) => {
+      this.storageService.get(SettingService.KEY_SETTING).then((setting)=> {
+        if (setting) {
+          this.setting = setting;
+        } else {
+          this.setting = new Setting();
+        }
+        resolve();
+      });
     });
   }
 
@@ -30,6 +32,14 @@ export class SettingService {
 
   getSpecificationType():string {
     return this.setting.specificationType;
+  }
+
+  isSpecificationTypeEqualToRound():boolean {
+    return this.setting.specificationType == Setting.SHAPE_ROUND;
+  }
+
+  isSpecificationTypeEqualToSquare():boolean {
+    return this.setting.specificationType == Setting.SHAPE_SQUARE;
   }
 
   changeSetting(setting:Setting):Promise<any> {

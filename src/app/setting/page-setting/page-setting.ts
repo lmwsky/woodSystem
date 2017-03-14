@@ -3,6 +3,7 @@ import {Platform} from "ionic-angular";
 import {StorageService} from "../../core/storage.service";
 import {Setting} from "../../core/setting";
 import {SettingService} from "../../core/setting.service";
+import {StockService} from "../../core/stock.service";
 
 /*
  Generated class for the PageSetting page.
@@ -18,7 +19,7 @@ export class SettingPage implements OnInit {
 
   setting:Setting;
 
-  constructor(private settingService:SettingService, private storageService:StorageService, private platform:Platform) {
+  constructor(private stockService:StockService, private settingService:SettingService, private storageService:StorageService, private platform:Platform) {
   }
 
   ngOnInit():void {
@@ -27,13 +28,19 @@ export class SettingPage implements OnInit {
 
   specificationTypeChange() {
     console.log("specificationTypeChange saved to db");
-    this.settingService.changeSetting(this.setting);
+    this.settingService.changeSetting(this.setting).then(()=> {
+      this.platform.exitApp();
+    });
   }
 
   clearDB():Promise<any> {
-    return this.storageService.clearDB().then(()=> {
-      console.log("clearDB");
-      this.platform.exitApp();
-    });
+
+    /*return this.storageService.clearDB().then(()=> {
+     console.log("clearDB");
+     this.platform.exitApp();
+     });*/
+    console.log("in setting page--");
+    console.log(this.stockService.stockItemList);
+    return null;
   }
 }
